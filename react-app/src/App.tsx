@@ -13,6 +13,7 @@ import GradingQueue from './pages/GradingQueue';
 import RunReport from './pages/RunReport';
 import TrendReport from './pages/TrendReport';
 import IssueTypes from './pages/IssueTypes';
+import RepoReport from './pages/RepoReport';
 import Settings from './pages/Settings';
 
 const queryClient = new QueryClient({
@@ -28,6 +29,7 @@ function App() {
             <h2>PR Bench</h2>
             <NavLink to="/">Dashboard</NavLink>
             <NavLink to="/repos">Repositories</NavLink>
+            <NavLink to="/repo-report">Report & Docs</NavLink>
             <NavLink to="/suites">Suites</NavLink>
             <NavLink to="/bots">Bots</NavLink>
             <NavLink to="/runs">Runs</NavLink>
@@ -41,6 +43,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/repos" element={<Repositories />} />
+              <Route path="/repo-report" element={<RepoReport />} />
               <Route path="/suites" element={<Suites />} />
               <Route path="/suites/:id" element={<SuiteDetail />} />
               <Route path="/bots" element={<Bots />} />

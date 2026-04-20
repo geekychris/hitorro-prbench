@@ -226,3 +226,19 @@ tr:hover { background: #f0f4ff; }
 .verdict-invalid { color: var(--danger); }
 .verdict-duplicate { color: var(--warning); }
 .verdict-needs-review { color: var(--primary); }
+
+.markdown-report h1 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.markdown-report h2 { font-size: 20px; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.markdown-report h3 { font-size: 16px; margin: 20px 0 8px; }
+.markdown-report p { margin: 8px 0; line-height: 1.6; }
+.markdown-report a { color: var(--primary); text-decoration: none; }
+.markdown-report a:hover { text-decoration: underline; }
+.markdown-report table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+.markdown-report th { background: #f0f0f0; font-weight: 600; text-align: left; padding: 8px 10px; border: 1px solid var(--border); }
+.markdown-report td { padding: 6px 10px; border: 1px solid var(--border); vertical-align: top; }
+.markdown-report tr:nth-child(even) { background: #f9f9f9; }
+.markdown-report ul, .markdown-report ol { margin: 8px 0; padding-left: 24px; }
+.markdown-report li { margin: 4px 0; line-height: 1.5; }
+.markdown-report hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+.markdown-report code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+.markdown-report strong { font-weight: 600; }

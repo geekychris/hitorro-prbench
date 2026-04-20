@@ -21,7 +21,13 @@ export const api = {
 export interface Repo {
   id: number; name: string; githubUrl: string; owner: string; repoName: string;
   mirrorOrg: string; mirrorRepoName: string; defaultBranch: string;
-  syncStatus: string; createdAt: string;
+  syncStatus: string; tags: string; notes: string;
+  language: string; fork: boolean; isPrivate: boolean; stars: number;
+  githubDescription: string; docsJson: string; docsScannedAt: string; createdAt: string;
+}
+
+export interface DocFile {
+  path: string; url: string; name: string; category: string;
 }
 
 export interface Suite {

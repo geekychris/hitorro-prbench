@@ -31,10 +31,10 @@ public class BenchmarkRun {
     @Column(name = "completed_at")
     private Instant completedAt;
 
-    @Column(name = "error_message")
+    @Column(name = "error_message", length = 2000)
     private String errorMessage;
 
-    @Column(name = "config_json")
+    @Column(name = "config_json", columnDefinition = "CLOB")
     private String configJson;
 
     @Column(name = "created_at", nullable = false)

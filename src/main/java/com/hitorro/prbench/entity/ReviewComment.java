@@ -47,7 +47,7 @@ public class ReviewComment {
     @Column(name = "github_created_at")
     private Instant githubCreatedAt;
 
-    @Column(name = "metadata_json")
+    @Column(name = "metadata_json", columnDefinition = "CLOB")
     private String metadataJson;
 
     @Column(name = "created_at", nullable = false)

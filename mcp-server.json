@@ -1,0 +1,70 @@
+{
+  "name": "pr-bench",
+  "description": "HiTorro PR Bench - Repository management, tagging, AI descriptions, and benchmarking",
+  "transport": "http",
+  "url": "http://localhost:8090",
+  "tools": [
+    {
+      "name": "list_repos",
+      "description": "List all registered repositories with optional filters",
+      "endpoint": "GET /api/repos",
+      "parameters": {
+        "search": { "type": "string", "description": "Search across name, description, tags, language" },
+        "tag": { "type": "string", "description": "Filter by tag" },
+        "language": { "type": "string", "description": "Filter by programming language" },
+        "owner": { "type": "string", "description": "Filter by GitHub owner" },
+        "isFork": { "type": "boolean", "description": "Filter forks (true) or owned (false)" },
+        "hasNotes": { "type": "boolean", "description": "Filter repos with (true) or without (false) descriptions" }
+      }
+    },
+    {
+      "name": "get_repo_status",
+      "description": "Compare local state vs live GitHub state for a repo (description, tags)",
+      "endpoint": "GET /api/repos/{id}/github-status"
+    },
+    {
+      "name": "add_tag",
+      "description": "Add a git tag to a repository (pushes to GitHub immediately)",
+      "endpoint": "POST /api/repos/{id}/tags",
+      "body": { "tag": "string" }
+    },
+    {
+      "name": "remove_tag",
+      "description": "Remove a git tag from a repository (deletes from GitHub)",
+      "endpoint": "DELETE /api/repos/{id}/tags/{tag}"
+    },
+    {
+      "name": "set_description",
+      "description": "Set description for a repository (pushes to GitHub, max 350 chars)",
+      "endpoint": "POST /api/repos/{id}/notes",
+      "body": { "notes": "string" }
+    },
+    {
+      "name": "generate_description",
+      "description": "Use Ollama to generate a description by scanning the repo's README, file tree, commits, and manifest",
+      "endpoint": "POST /api/repos/{id}/generate-description?save={save}",
+      "parameters": { "save": { "type": "boolean", "default": true } }
+    },
+    {
+      "name": "repo_stats",
+      "description": "Get faceted stats: counts by owner, language, tag, fork status, description coverage",
+      "endpoint": "GET /api/repos/meta/stats"
+    },
+    {
+      "name": "sync_to_github",
+      "description": "Force-push local description and tags to GitHub for a repo",
+      "endpoint": "POST /api/repos/{id}/sync-to-github"
+    },
+    {
+      "name": "browse_github",
+      "description": "List all GitHub repos visible to the authenticated user's token",
+      "endpoint": "GET /api/repos/github/browse"
+    },
+    {
+      "name": "import_repo",
+      "description": "Import a GitHub repo into the local database",
+      "endpoint": "POST /api/repos/import",
+      "body": { "owner": "string", "repoName": "string", "name": "string", "defaultBranch": "string" }
+    }
+  ]
+}

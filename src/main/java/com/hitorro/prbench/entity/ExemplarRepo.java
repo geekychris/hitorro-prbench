@@ -12,7 +12,7 @@ public class ExemplarRepo {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "github_url", nullable = false)
+    @Column(name = "github_url", nullable = false, length = 500)
     private String githubUrl;
 
     @Column(nullable = false)
@@ -27,7 +27,7 @@ public class ExemplarRepo {
     @Column(name = "mirror_repo_name")
     private String mirrorRepoName;
 
-    @Column(name = "mirror_repo_url")
+    @Column(name = "mirror_repo_url", length = 500)
     private String mirrorRepoUrl;
 
     @Column(name = "default_branch")
@@ -39,8 +39,33 @@ public class ExemplarRepo {
     @Column(name = "sync_status")
     private String syncStatus = "NEVER";
 
-    @Column(name = "config_json")
+    @Column(name = "config_json", columnDefinition = "CLOB")
     private String configJson;
+
+    @Column(name = "tags", length = 2000)
+    private String tags;
+
+    @Column(name = "notes", columnDefinition = "CLOB")
+    private String notes;
+
+    private String language;
+
+    @Column(name = "is_fork")
+    private boolean fork;
+
+    @Column(name = "is_private")
+    private boolean isPrivate;
+
+    private int stars;
+
+    @Column(name = "github_description", length = 2000)
+    private String githubDescription;
+
+    @Column(name = "docs_json", columnDefinition = "CLOB")
+    private String docsJson;
+
+    @Column(name = "docs_scanned_at")
+    private Instant docsScannedAt;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -83,6 +108,47 @@ public class ExemplarRepo {
     public void setSyncStatus(String syncStatus) { this.syncStatus = syncStatus; }
     public String getConfigJson() { return configJson; }
     public void setConfigJson(String configJson) { this.configJson = configJson; }
+    public String getTags() { return tags; }
+    public void setTags(String tags) { this.tags = tags; }
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
+    public String getLanguage() { return language; }
+    public void setLanguage(String language) { this.language = language; }
+    public boolean isFork() { return fork; }
+    public void setFork(boolean fork) { this.fork = fork; }
+    public boolean isIsPrivate() { return isPrivate; }
+    public void setIsPrivate(boolean isPrivate) { this.isPrivate = isPrivate; }
+    public int getStars() { return stars; }
+    public void setStars(int stars) { this.stars = stars; }
+    public String getGithubDescription() { return githubDescription; }
+    public void setGithubDescription(String githubDescription) { this.githubDescription = githubDescription; }
+    public String getDocsJson() { return docsJson; }
+    public void setDocsJson(String docsJson) { this.docsJson = docsJson; }
+    public Instant getDocsScannedAt() { return docsScannedAt; }
+    public void setDocsScannedAt(Instant docsScannedAt) { this.docsScannedAt = docsScannedAt; }
     public Instant getCreatedAt() { return createdAt; }
     public Instant getUpdatedAt() { return updatedAt; }
+
+    /** Helper: get tags as list. */
+    public java.util.List<String> getTagList() {
+        if (tags == null || tags.isBlank()) return java.util.List.of();
+        return java.util.Arrays.asList(tags.split(","));
+    }
+
+    /** Helper: set tags from list. */
+    public void setTagList(java.util.List<String> tagList) {
+        this.tags = tagList == null || tagList.isEmpty() ? null : String.join(",", tagList);
+    }
+
+    public void addTag(String tag) {
+        var list = new java.util.ArrayList<>(getTagList());
+        if (!list.contains(tag.trim())) list.add(tag.trim());
+        setTagList(list);
+    }
+
+    public void removeTag(String tag) {
+        var list = new java.util.ArrayList<>(getTagList());
+        list.remove(tag.trim());
+        setTagList(list);
+    }
 }

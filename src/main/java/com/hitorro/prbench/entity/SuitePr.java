@@ -44,10 +44,10 @@ public class SuitePr {
     private int additions;
     private int deletions;
 
-    @Column(name = "pr_labels")
+    @Column(name = "pr_labels", length = 2000)
     private String prLabels;
 
-    @Column(name = "metadata_json")
+    @Column(name = "metadata_json", columnDefinition = "CLOB")
     private String metadataJson;
 
     @Column(name = "created_at", nullable = false)

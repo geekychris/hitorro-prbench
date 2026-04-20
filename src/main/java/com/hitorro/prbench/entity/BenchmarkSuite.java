@@ -12,13 +12,14 @@ public class BenchmarkSuite {
     @Column(nullable = false)
     private String name;
 
+    @Column(length = 2000)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exemplar_repo_id", nullable = false)
     private ExemplarRepo exemplarRepo;
 
-    @Column(name = "pr_selection_config_json")
+    @Column(name = "pr_selection_config_json", columnDefinition = "CLOB")
     private String prSelectionConfigJson;
 
     @Column(name = "created_at", nullable = false)
