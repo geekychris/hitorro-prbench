@@ -4,7 +4,7 @@ A standalone benchmarking platform for evaluating AI code review bots. PR Bench 
 
 Built with Java 21, Spring Boot 3.2, React 18, and H2 (file-based).
 
-## Feature Highlights
+## Feature Highlights which are important
 
 **PR Benchmarking Pipeline**
 - Define benchmark suites from real GitHub PRs with known review comments
