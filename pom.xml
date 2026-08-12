@@ -27,11 +27,14 @@
     </properties>
 
     <dependencies>
-        <!-- HiTorro Git Tools -->
         <dependency>
             <groupId>com.hitorro</groupId>
-            <artifactId>hitorro-gittools</artifactId>
-            <version>3.0.0</version>
+            <artifactId>hitorro-streams</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <!-- HiTorro Git Tools -->
+        <dependency>
+            <groupId>com.hitorro</groupId><artifactId>hitorro-gittools</artifactId><version>3.0.1</version>
         </dependency>
 
         <!-- Spring Boot -->
