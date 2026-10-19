@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Hitorro Prbench logo" width="180">
+</p>
+
 # HiTorro PR Bench
 
 A standalone benchmarking platform for evaluating AI code review bots. PR Bench replays real pull requests as synthetic PRs in mirror repositories, triggers AI reviewer workflows, collects their comments, and measures quality against a human-curated golden dataset using precision, recall, and F1 metrics.
