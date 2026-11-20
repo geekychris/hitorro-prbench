@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: hitorro-pr-bench
+  http:
+    converters:
+      # Boot 4 defaults to Jackson 3; keep Jackson 2 (com.fasterxml.jackson) for HTTP.
+      preferred-json-mapper: jackson2
   datasource:
     url: jdbc:h2:file:./data/prbench
     driver-class-name: org.h2.Driver

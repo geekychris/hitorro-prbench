@@ -6,7 +6,7 @@
 
 A standalone benchmarking platform for evaluating AI code review bots. PR Bench replays real pull requests as synthetic PRs in mirror repositories, triggers AI reviewer workflows, collects their comments, and measures quality against a human-curated golden dataset using precision, recall, and F1 metrics.
 
-Built with Java 21, Spring Boot 3.2, React 18, and H2 (file-based).
+Built with Java 21, Spring Boot 4, React 18, and H2 (file-based).
 
 ## Feature Highlights which are important
 
@@ -37,7 +37,7 @@ graph TB
         React[React 18 SPA<br/>Vite + TypeScript]
     end
 
-    subgraph Backend["Spring Boot 3.2 (port 8090)"]
+    subgraph Backend["Spring Boot 4 (port 8090)"]
         Controllers[REST Controllers]
         Orchestrator[RunOrchestrator]
         Replay[ReplayEngine]
@@ -585,7 +585,7 @@ The project uses:
 
 ```
 hitorro-pr-bench/
-|-- pom.xml                              # Maven build (Spring Boot 3.2 parent)
+|-- pom.xml                              # Maven build (Spring Boot 4 parent)  
 |-- run.sh                               # Start backend + frontend
 |-- src/
 |   |-- main/
