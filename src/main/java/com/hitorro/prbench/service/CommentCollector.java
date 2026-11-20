@@ -1,6 +1,6 @@
 package com.hitorro.prbench.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.hitorro.prbench.entity.*;
 import com.hitorro.prbench.repository.*;
 import org.slf4j.Logger;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import com.hitorro.util.json.JsonValues;
 
 /**
  * Collects review comments from GitHub PRs (both bot-generated replay PR comments
@@ -47,7 +48,7 @@ public class CommentCollector {
 
             // PR reviews with body
             for (JsonNode r : github.listPrReviews(owner, repo, prNumber)) {
-                String body = r.has("body") ? r.get("body").asText("") : "";
+                String body = r.has("body") ? JsonValues.asText(r.get("body"), "") : "";
                 if (!body.isBlank()) {
                     collected.add(toReviewComment(r, replayPr, "REVIEW"));
                 }
@@ -78,7 +79,7 @@ public class CommentCollector {
             }
 
             for (JsonNode r : github.listPrReviews(owner, repo, prNumber)) {
-                String body = r.has("body") ? r.get("body").asText("") : "";
+                String body = r.has("body") ? JsonValues.asText(r.get("body"), "") : "";
                 if (!body.isBlank()) {
                     collected.add(toOriginalComment(r, suitePr, "REVIEW"));
                 }
@@ -101,17 +102,17 @@ public class CommentCollector {
         rc.setReplayPr(replayPr);
         rc.setSource("BOT");
         rc.setBot(replayPr.getBot());
-        rc.setGithubCommentId(node.has("id") ? node.get("id").asLong() : 0);
+        rc.setGithubCommentId(node.has("id") ? JsonValues.asLong(node.get("id")) : 0);
         rc.setCommentType(commentType);
-        rc.setFilePath(node.has("path") ? node.get("path").asText() : null);
-        rc.setLineNumber(node.has("line") ? node.get("line").asInt() : null);
-        rc.setDiffHunk(node.has("diff_hunk") ? node.get("diff_hunk").asText() : null);
-        String body = node.has("body") ? node.get("body").asText("") : "";
+        rc.setFilePath(node.has("path") ? JsonValues.asText(node.get("path")) : null);
+        rc.setLineNumber(node.has("line") ? JsonValues.asInt(node.get("line")) : null);
+        rc.setDiffHunk(node.has("diff_hunk") ? JsonValues.asText(node.get("diff_hunk")) : null);
+        String body = node.has("body") ? JsonValues.asText(node.get("body"), "") : "";
         rc.setBody(body);
         rc.setBodyNormalized(TextNormalizer.normalize(body));
         rc.setFingerprintHash(TextNormalizer.winnowingHash(body, 5, 4));
         if (node.has("created_at")) {
-            try { rc.setGithubCreatedAt(Instant.parse(node.get("created_at").asText())); }
+            try { rc.setGithubCreatedAt(Instant.parse(JsonValues.asText(node.get("created_at")))); }
             catch (Exception ignored) {}
         }
         return rc;
@@ -120,18 +121,18 @@ public class CommentCollector {
     private OriginalComment toOriginalComment(JsonNode node, SuitePr suitePr, String commentType) {
         var oc = new OriginalComment();
         oc.setSuitePr(suitePr);
-        oc.setAuthor(node.has("user") ? node.get("user").get("login").asText() : "unknown");
-        oc.setGithubCommentId(node.has("id") ? node.get("id").asLong() : 0);
+        oc.setAuthor(node.has("user") ? JsonValues.asText(node.get("user").get("login")) : "unknown");
+        oc.setGithubCommentId(node.has("id") ? JsonValues.asLong(node.get("id")) : 0);
         oc.setCommentType(commentType);
-        oc.setFilePath(node.has("path") ? node.get("path").asText() : null);
-        oc.setLineNumber(node.has("line") ? node.get("line").asInt() : null);
-        oc.setDiffHunk(node.has("diff_hunk") ? node.get("diff_hunk").asText() : null);
-        String body = node.has("body") ? node.get("body").asText("") : "";
+        oc.setFilePath(node.has("path") ? JsonValues.asText(node.get("path")) : null);
+        oc.setLineNumber(node.has("line") ? JsonValues.asInt(node.get("line")) : null);
+        oc.setDiffHunk(node.has("diff_hunk") ? JsonValues.asText(node.get("diff_hunk")) : null);
+        String body = node.has("body") ? JsonValues.asText(node.get("body"), "") : "";
         oc.setBody(body);
         oc.setBodyNormalized(TextNormalizer.normalize(body));
         oc.setFingerprintHash(TextNormalizer.winnowingHash(body, 5, 4));
         if (node.has("created_at")) {
-            try { oc.setGithubCreatedAt(Instant.parse(node.get("created_at").asText())); }
+            try { oc.setGithubCreatedAt(Instant.parse(JsonValues.asText(node.get("created_at")))); }
             catch (Exception ignored) {}
         }
         return oc;

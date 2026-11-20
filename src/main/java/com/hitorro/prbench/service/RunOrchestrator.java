@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import com.hitorro.util.json.JsonValues;
 
 /**
  * Orchestrates benchmark runs: creates replay PRs, waits for bot reviews,
@@ -188,13 +189,13 @@ public class RunOrchestrator {
                 try {
                     // Get head branch SHA for check runs
                     var pr = github.getPullRequest(mirrorOrg, mirrorRepo, replayPr.getMirrorPrNumber());
-                    String sha = pr.get("head").get("sha").asText();
+                    String sha = JsonValues.asText(pr.get("head").get("sha"));
                     var checkRuns = github.listCheckRuns(mirrorOrg, mirrorRepo, sha);
-                    int total = checkRuns.get("total_count").asInt();
+                    int total = JsonValues.asInt(checkRuns.get("total_count"));
                     if (total > 0) {
                         boolean allComplete = true;
                         for (var cr : checkRuns.get("check_runs")) {
-                            if (!"completed".equals(cr.get("status").asText())) {
+                            if (!"completed".equals(JsonValues.asText(cr.get("status")))) {
                                 allComplete = false;
                                 break;
                             }

@@ -1,8 +1,8 @@
 package com.hitorro.prbench;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
+import com.hitorro.util.json.JsonMappers;
+import tools.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +11,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,18 +23,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Boot 4 defaults HTTP JSON to Jackson 3 (tools.jackson). This app keeps
- * Jackson 2 (spring-boot-jackson2 + spring.http.converters.preferred-json-mapper=jackson2).
- * A Jackson 3 converter would write a com.fasterxml JsonNode as a bean
- * ({"array":false,"nodeType":"OBJECT",...}), so these tests pin the body.
+ * HTTP JSON is Boot 4's own Jackson 3 (tools.jackson) converter; HiTorro code and the endpoints use
+ * Jackson 3 nodes too. Before 4.0.0 the app ran on Jackson 2 through spring-boot-jackson2, where a
+ * Jackson 3 converter would have written a com.fasterxml JsonNode as a bean
+ * ({"array":false,"nodeType":"OBJECT",...}). These tests pin the body and the converter.
  */
 @SpringBootTest(properties = {
         "spring.datasource.url=jdbc:h2:mem:prbench-json-test;DB_CLOSE_DELAY=-1",
         "app.github.token="
 })
 @AutoConfigureMockMvc
-@Import(Jackson2JsonTest.ProbeConfig.class)
-class Jackson2JsonTest {
+@Import(JsonNodeJsonTest.ProbeConfig.class)
+class JsonNodeJsonTest {
 
     @Autowired
     MockMvc mvc;
@@ -52,13 +52,13 @@ class Jackson2JsonTest {
     }
 
     @Test
-    void jackson2ConverterIsTheJsonWriter() {
+    void jacksonConverterIsTheJsonWriter() {
         // The first converter able to write a JsonNode as JSON is the one used for responses.
         // (Spring Data's read-only projecting converter may sit ahead of it; it never writes.)
         HttpMessageConverter<?> firstJson = adapter.getMessageConverters().stream()
                 .filter(c -> c.canWrite(ObjectNode.class, MediaType.APPLICATION_JSON))
                 .findFirst().orElseThrow();
-        assertThat(firstJson).isInstanceOf(MappingJackson2HttpMessageConverter.class);
+        assertThat(firstJson).isInstanceOf(JacksonJsonHttpMessageConverter.class);
     }
 
     @Test
@@ -66,7 +66,7 @@ class Jackson2JsonTest {
         mvc.perform(get("/api/issue-types/categories").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(result -> assertThat(new ObjectMapper()
+                .andExpect(result -> assertThat(JsonMappers.json()
                         .readTree(result.getResponse().getContentAsString()).isArray()).isTrue());
     }
 
@@ -76,7 +76,7 @@ class Jackson2JsonTest {
         static class JsonNodeProbeController {
             @GetMapping("/test/json-node")
             JsonNode jsonNode() {
-                ObjectNode n = new ObjectMapper().createObjectNode();
+                ObjectNode n = JsonMappers.json().createObjectNode();
                 n.put("name", "prbench");
                 n.put("count", 3);
                 n.putObject("nested").put("ok", true);

@@ -1,6 +1,6 @@
 package com.hitorro.prbench.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.hitorro.prbench.entity.*;
 import com.hitorro.prbench.repository.*;
 import com.hitorro.prbench.service.TextNormalizer;
