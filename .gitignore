@@ -1,0 +1,3 @@
+
+# Runtime state: H2 database and the saved config (it can hold a GitHub token). Never commit.
+data/
