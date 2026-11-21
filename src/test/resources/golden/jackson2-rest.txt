@@ -142,12 +142,12 @@ content-type: application/json
 ### repo import
 status: 200
 content-type: application/json
-{"alreadyExists":false,"repo":{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"A lib","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}}
+{"repo":{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"A lib","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]},"alreadyExists":false}
 
 ### repo import existing
 status: 200
 content-type: application/json
-{"alreadyExists":true,"repo":{"id":1,"name":"app","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}}
+{"repo":{"id":1,"name":"app","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]},"alreadyExists":true}
 
 ### repo import missing
 status: 400
@@ -248,7 +248,7 @@ content-type: application/json
 ### repo github status
 status: 200
 content-type: application/json
-{"local":{"tags":["Backend","golden","bulk"],"notes":"Local notes","githubDescription":""},"github":{"description":"Golden repo \"app\" é","topics":["java","golden"]},"synced":true}
+{"local":{"githubDescription":"","tags":["Backend","golden","bulk"],"notes":"Local notes"},"github":{"description":"Golden repo \"app\" é","topics":["java","golden"]},"synced":true}
 
 ### repo github status -> github
 GET /repos/golden/app
@@ -266,7 +266,7 @@ PUT /repos/golden/app/topics {"names":["backend","golden","bulk"]}
 ### repo generate description
 status: 200
 content-type: application/json
-{"error":"Ollama unavailable or failed. Is it running at localhost:11434?","generated":false}
+{"generated":false,"error":"Ollama unavailable or failed. Is it running at localhost:11434?"}
 
 ### repo generate description -> github
 GET /repos/golden/app/readme
@@ -330,12 +330,12 @@ GET /repos/golden/app/pulls?state=closed&per_page=30
 ### repo docs before scan
 status: 200
 content-type: application/json
-{"scanned":false,"docs":[]}
+{"docs":[],"scanned":false}
 
 ### repo scan docs
 status: 200
 content-type: application/json
-{"count":3,"docs":[{"path":"README.md","url":"https://github.com/golden/app/blob/develop/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/app/blob/develop/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/app/blob/develop/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}]}
+{"docs":[{"path":"README.md","url":"https://github.com/golden/app/blob/develop/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/app/blob/develop/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/app/blob/develop/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}],"count":3}
 
 ### repo scan docs -> github
 GET /repos/golden/app/git/trees/develop?recursive=1
@@ -348,7 +348,7 @@ content-type: application/json
 ### repo bulk scan docs
 status: 200
 content-type: application/json
-{"scanned":1,"total":1,"failed":0}
+{"total":1,"failed":0,"scanned":1}
 
 ### repo bulk scan docs -> github
 GET /repos/golden/lib/git/trees/main?recursive=1
@@ -356,7 +356,7 @@ GET /repos/golden/lib/git/trees/main?recursive=1
 ### repo bulk scan docs unscanned
 status: 200
 content-type: application/json
-{"scanned":1,"total":1,"failed":0}
+{"total":1,"failed":0,"scanned":1}
 
 ### repo bulk scan docs unscanned -> github
 GET /repos/golden-org/svc/git/trees/main?recursive=1
@@ -364,12 +364,12 @@ GET /repos/golden-org/svc/git/trees/main?recursive=1
 ### repo report
 status: 200
 content-type: application/json
-{"repoCount":2,"markdown":"# Golden report\n\nGenerated: ~\n\n## Summary\n\n| Repository | Language | Tags | Description |\n|:-----------|:---------|:-----|:------------|\n| [golden/app](https://github.com/golden/app) | - | Backend, golden, bulk | Local notes |\n| [golden/lib](https://github.com/golden/lib) (fork) | Kotlin | bulk | Lib notes é |\n\n## Repository Details\n\n### [app](https://github.com/golden/app)\n\nLocal notes\n\n**Tags:** Backend, golden, bulk\n\n**Language:** Unknown\n\n**Documentation:**\n\n- \uD83D\uDCD6 [README.md](https://github.com/golden/app/blob/develop/README.md)\n- \uD83D\uDCC4 [docs/guide.md](https://github.com/golden/app/blob/develop/docs/guide.md)\n- \uD83E\uDD1D [CONTRIBUTING.md](https://github.com/golden/app/blob/develop/CONTRIBUTING.md)\n\n---\n\n### [lib](https://github.com/golden/lib)\n\nLib notes é\n\n**Tags:** bulk\n\n**Language:** Kotlin | **Fork**\n\n**Documentation:**\n\n- \uD83D\uDCD6 [README.md](https://github.com/golden/lib/blob/main/README.md)\n- \uD83D\uDCC4 [docs/guide.md](https://github.com/golden/lib/blob/main/docs/guide.md)\n- \uD83E\uDD1D [CONTRIBUTING.md](https://github.com/golden/lib/blob/main/CONTRIBUTING.md)\n\n---\n\n## Statistics\n\n- **Total repositories:** 2\n- **Owned:** 1\n- **Forks:** 1\n- **Languages:** Kotlin (1)\n"}
+{"markdown":"# Golden report\n\nGenerated: ~\n\n## Summary\n\n| Repository | Language | Tags | Description |\n|:-----------|:---------|:-----|:------------|\n| [golden/app](https://github.com/golden/app) | - | Backend, golden, bulk | Local notes |\n| [golden/lib](https://github.com/golden/lib) (fork) | Kotlin | bulk | Lib notes é |\n\n## Repository Details\n\n### [app](https://github.com/golden/app)\n\nLocal notes\n\n**Tags:** Backend, golden, bulk\n\n**Language:** Unknown\n\n**Documentation:**\n\n- \uD83D\uDCD6 [README.md](https://github.com/golden/app/blob/develop/README.md)\n- \uD83D\uDCC4 [docs/guide.md](https://github.com/golden/app/blob/develop/docs/guide.md)\n- \uD83E\uDD1D [CONTRIBUTING.md](https://github.com/golden/app/blob/develop/CONTRIBUTING.md)\n\n---\n\n### [lib](https://github.com/golden/lib)\n\nLib notes é\n\n**Tags:** bulk\n\n**Language:** Kotlin | **Fork**\n\n**Documentation:**\n\n- \uD83D\uDCD6 [README.md](https://github.com/golden/lib/blob/main/README.md)\n- \uD83D\uDCC4 [docs/guide.md](https://github.com/golden/lib/blob/main/docs/guide.md)\n- \uD83E\uDD1D [CONTRIBUTING.md](https://github.com/golden/lib/blob/main/CONTRIBUTING.md)\n\n---\n\n## Statistics\n\n- **Total repositories:** 2\n- **Owned:** 1\n- **Forks:** 1\n- **Languages:** Kotlin (1)\n","repoCount":2}
 
 ### repo report plain
 status: 200
 content-type: application/json
-{"repoCount":3,"markdown":"# Repository Report\n\nGenerated: ~\n\n## Summary\n\n| Repository | Language | Tags | Description |\n|:-----------|:---------|:-----|:------------|\n| [golden/app](https://github.com/golden/app) | - | Backend, golden, bulk | Local notes |\n| [golden/lib](https://github.com/golden/lib) (fork) | Kotlin | bulk | Lib notes é |\n| [golden-org/svc](https://github.com/golden-org/svc) | - | - | - |\n## Statistics\n\n- **Total repositories:** 3\n- **Owned:** 2\n- **Forks:** 1\n- **Languages:** Kotlin (1)\n"}
+{"markdown":"# Repository Report\n\nGenerated: ~\n\n## Summary\n\n| Repository | Language | Tags | Description |\n|:-----------|:---------|:-----|:------------|\n| [golden/app](https://github.com/golden/app) | - | Backend, golden, bulk | Local notes |\n| [golden/lib](https://github.com/golden/lib) (fork) | Kotlin | bulk | Lib notes é |\n| [golden-org/svc](https://github.com/golden-org/svc) | - | - | - |\n## Statistics\n\n- **Total repositories:** 3\n- **Owned:** 2\n- **Forks:** 1\n- **Languages:** Kotlin (1)\n","repoCount":3}
 
 ### suites empty
 status: 200
@@ -648,6 +648,16 @@ content-type:
 status: 200
 content-type: application/vnd.spring-boot.actuator.v3+json
 {"status":"UP","groups":["liveness","readiness"]}
+
+### actuator links
+status: 200
+content-type: application/vnd.spring-boot.actuator.v3+json
+{"_links":{"self":{"href":"http://localhost/actuator","templated":false},"health":{"href":"http://localhost/actuator/health","templated":false},"health-path":{"href":"http://localhost/actuator/health/{*path}","templated":true}}}
+
+### actuator health liveness
+status: 200
+content-type: application/vnd.spring-boot.actuator.v3+json
+{"status":"UP"}
 
 ### openapi document
 status: 200

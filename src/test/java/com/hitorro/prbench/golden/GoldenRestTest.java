@@ -98,7 +98,8 @@ class GoldenRestTest {
                 .normalizer(s -> s.replaceAll("(\"[A-Za-z_]*(At|_at)\"\\s*:\\s*)\"(?!2020-)[0-9][^\"]*\"", "$1\"~\""))
                 .normalizer(s -> s.replaceAll("Generated: [0-9T:.Z-]+", "Generated: ~"))
                 .normalizer(s -> s.replaceAll("Run [0-9]{13}", "Run ~"))
-                .replace(github.url(), "<GITHUB>");
+                .replace(github.url(), "<GITHUB>")
+                .normalizer(s -> s.replaceAll("(\"statistic\":\"[A-Z_]+\",\"value\":)[0-9.Ee+-]+", "$10"));
         github.drain();
 
         setup();
@@ -113,6 +114,8 @@ class GoldenRestTest {
         reports();
         cleanup();
         g.rest(mvc, "actuator health", get("/actuator/health"));
+        g.restUnordered(mvc, "actuator links", get("/actuator"));
+        g.rest(mvc, "actuator health liveness", get("/actuator/health/liveness"));
         g.restUnordered(mvc, "openapi document", get("/api-docs"));
         storedJson();
         ConverterProbe.run(ConverterProbe.jsonConverter(adapter), g);
