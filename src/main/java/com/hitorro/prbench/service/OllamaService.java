@@ -1,7 +1,8 @@
 package com.hitorro.prbench.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import com.hitorro.util.json.JsonMappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
+import com.hitorro.util.json.JsonValues;
 
 /**
  * Ollama LLM integration for generating repo descriptions by scanning
@@ -23,7 +25,7 @@ public class OllamaService {
 
     private static final Logger log = LoggerFactory.getLogger(OllamaService.class);
     private final HttpClient httpClient;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = JsonMappers.json();
 
     @Value("${app.ollama.url:http://localhost:11434}")
     private String ollamaUrl;
@@ -116,7 +118,7 @@ public class OllamaService {
             var resp = httpClient.send(req, HttpResponse.BodyHandlers.ofString());
             if (resp.statusCode() == 200) {
                 JsonNode result = mapper.readTree(resp.body());
-                return result.get("response").asText().trim();
+                return JsonValues.asText(result.get("response")).trim();
             }
             log.warn("Ollama returned {}: {}", resp.statusCode(), resp.body());
             return null;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import com.hitorro.util.json.JsonValues;
 
 /**
  * Replays a suite PR as a synthetic PR in a mirror repository.
@@ -109,8 +110,8 @@ public class ReplayEngine {
 
             var prNode = github.createPullRequest(mirrorOrg, mirrorRepo, title, body, headBranch, baseBranch);
 
-            int prNumber = prNode.get("number").asInt();
-            String prUrl = prNode.get("html_url").asText();
+            int prNumber = JsonValues.asInt(prNode.get("number"));
+            String prUrl = JsonValues.asText(prNode.get("html_url"));
 
             // Switch back to default branch
             gitService.checkout(workspace, repo.getDefaultBranch());

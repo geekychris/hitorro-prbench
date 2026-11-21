@@ -1,6 +1,6 @@
 package com.hitorro.prbench.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.hitorro.prbench.entity.ExemplarRepo;
 import com.hitorro.prbench.repository.ExemplarRepoRepository;
 import com.hitorro.prbench.service.GitHubApiService;
@@ -10,12 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
+import com.hitorro.util.json.JsonMappers;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
+import com.hitorro.util.json.JsonValues;
 
 @RestController
 @RequestMapping("/api/repos")
@@ -215,7 +217,7 @@ public class RepoController {
                 var topics = github.getRepoTopics(repo.getOwner(), repo.getRepoName());
                 result.put("github", Map.of(
                         "description", ghRepo.has("description") && !ghRepo.get("description").isNull()
-                                ? ghRepo.get("description").asText() : "",
+                                ? JsonValues.asText(ghRepo.get("description")) : "",
                         "topics", topics));
                 result.put("synced", true);
             } catch (Exception e) {
@@ -447,7 +449,7 @@ public class RepoController {
         try {
             var readmeNode = github.get(path + "/readme");
             if (readmeNode.has("content")) {
-                String encoded = readmeNode.get("content").asText().replaceAll("\\n", "");
+                String encoded = JsonValues.asText(readmeNode.get("content")).replaceAll("\\n", "");
                 ctx.readme = new String(java.util.Base64.getDecoder().decode(encoded));
             }
         } catch (Exception e) {
@@ -459,7 +461,7 @@ public class RepoController {
             var repoNode = github.get(path);
             if (repoNode.has("topics") && repoNode.get("topics").isArray()) {
                 ctx.topics = new ArrayList<>();
-                repoNode.get("topics").forEach(t -> ctx.topics.add(t.asText()));
+                repoNode.get("topics").forEach(t -> ctx.topics.add(JsonValues.asText(t)));
             }
         } catch (Exception ignored) {}
 
@@ -469,8 +471,8 @@ public class RepoController {
             if (treeNode.isArray()) {
                 ctx.fileTree = new ArrayList<>();
                 treeNode.forEach(f -> {
-                    String type = f.has("type") ? f.get("type").asText() : "";
-                    String name = f.get("name").asText();
+                    String type = f.has("type") ? JsonValues.asText(f.get("type")) : "";
+                    String name = JsonValues.asText(f.get("name"));
                     ctx.fileTree.add(("dir".equals(type) ? name + "/" : name));
                 });
             }
@@ -483,7 +485,7 @@ public class RepoController {
                 ctx.recentCommits = new ArrayList<>();
                 commitsNode.forEach(c -> {
                     if (c.has("commit") && c.get("commit").has("message")) {
-                        String msg = c.get("commit").get("message").asText();
+                        String msg = JsonValues.asText(c.get("commit").get("message"));
                         // Just the first line
                         ctx.recentCommits.add(msg.contains("\n") ? msg.substring(0, msg.indexOf('\n')) : msg);
                     }
@@ -497,7 +499,7 @@ public class RepoController {
             try {
                 var fileNode = github.get(path + "/contents/" + manifest);
                 if (fileNode.has("content")) {
-                    String encoded = fileNode.get("content").asText().replaceAll("\\n", "");
+                    String encoded = JsonValues.asText(fileNode.get("content")).replaceAll("\\n", "");
                     ctx.packageManifest = new String(java.util.Base64.getDecoder().decode(encoded));
                     break;
                 }
@@ -578,21 +580,21 @@ public class RepoController {
 
     private Map<String, Object> ghRepoToMap(JsonNode r, Set<String> registered) {
         Map<String, Object> item = new LinkedHashMap<>();
-        item.put("fullName", r.get("full_name").asText());
-        item.put("owner", r.get("owner").get("login").asText());
-        item.put("name", r.get("name").asText());
+        item.put("fullName", JsonValues.asText(r.get("full_name")));
+        item.put("owner", JsonValues.asText(r.get("owner").get("login")));
+        item.put("name", JsonValues.asText(r.get("name")));
         item.put("description", r.has("description") && !r.get("description").isNull()
-                ? r.get("description").asText() : "");
-        item.put("defaultBranch", r.has("default_branch") ? r.get("default_branch").asText() : "main");
-        item.put("private", r.get("private").asBoolean());
-        item.put("fork", r.has("fork") && r.get("fork").asBoolean());
+                ? JsonValues.asText(r.get("description")) : "");
+        item.put("defaultBranch", r.has("default_branch") ? JsonValues.asText(r.get("default_branch")) : "main");
+        item.put("private", JsonValues.asBoolean(r.get("private")));
+        item.put("fork", r.has("fork") && JsonValues.asBoolean(r.get("fork")));
         item.put("language", r.has("language") && !r.get("language").isNull()
-                ? r.get("language").asText() : "");
-        item.put("stars", r.has("stargazers_count") ? r.get("stargazers_count").asInt() : 0);
-        item.put("updatedAt", r.has("updated_at") ? r.get("updated_at").asText() : "");
-        item.put("htmlUrl", r.get("html_url").asText());
+                ? JsonValues.asText(r.get("language")) : "");
+        item.put("stars", r.has("stargazers_count") ? JsonValues.asInt(r.get("stargazers_count")) : 0);
+        item.put("updatedAt", r.has("updated_at") ? JsonValues.asText(r.get("updated_at")) : "");
+        item.put("htmlUrl", JsonValues.asText(r.get("html_url")));
         item.put("registered", registered.contains(
-                r.get("owner").get("login").asText() + "/" + r.get("name").asText()));
+                JsonValues.asText(r.get("owner").get("login")) + "/" + JsonValues.asText(r.get("name"))));
         return item;
     }
 
@@ -604,7 +606,7 @@ public class RepoController {
         return repoRepo.findById(id).map(repo -> {
             try {
                 var docs = scanRepoForDocs(repo);
-                var mapper = new ObjectMapper();
+                var mapper = JsonMappers.json();
                 repo.setDocsJson(mapper.writeValueAsString(docs));
                 repo.setDocsScannedAt(Instant.now());
                 repoRepo.save(repo);
@@ -637,7 +639,7 @@ public class RepoController {
         for (var repo : toScan) {
             try {
                 var docs = scanRepoForDocs(repo);
-                var mapper = new ObjectMapper();
+                var mapper = JsonMappers.json();
                 repo.setDocsJson(mapper.writeValueAsString(docs));
                 repo.setDocsScannedAt(Instant.now());
                 repoRepo.save(repo);
@@ -656,7 +658,7 @@ public class RepoController {
         return repoRepo.findById(id).map(repo -> {
             if (repo.getDocsJson() == null) return ResponseEntity.ok(Map.of("docs", List.of(), "scanned", false));
             try {
-                var mapper = new ObjectMapper();
+                var mapper = JsonMappers.json();
                 var docs = mapper.readValue(repo.getDocsJson(), new TypeReference<List<Map<String, String>>>() {});
                 return ResponseEntity.ok(Map.of("docs", docs, "scanned", true,
                         "scannedAt", repo.getDocsScannedAt()));
@@ -679,8 +681,8 @@ public class RepoController {
 
             if (tree.has("tree") && tree.get("tree").isArray()) {
                 for (var node : tree.get("tree")) {
-                    if (!"blob".equals(node.get("type").asText())) continue;
-                    String path = node.get("path").asText();
+                    if (!"blob".equals(JsonValues.asText(node.get("type")))) continue;
+                    String path = JsonValues.asText(node.get("path"));
                     String lower = path.toLowerCase();
 
                     // Match markdown files and common doc files
@@ -729,12 +731,12 @@ public class RepoController {
                 var contents = github.get(basePath + "/contents");
                 if (contents.isArray()) {
                     for (var f : contents) {
-                        String name = f.get("name").asText().toLowerCase();
+                        String name = JsonValues.asText(f.get("name")).toLowerCase();
                         if (name.endsWith(".md") || name.equals("readme") || name.equals("license")) {
                             var doc = new LinkedHashMap<String, String>();
-                            doc.put("path", f.get("name").asText());
-                            doc.put("url", f.get("html_url").asText());
-                            doc.put("name", f.get("name").asText());
+                            doc.put("path", JsonValues.asText(f.get("name")));
+                            doc.put("url", JsonValues.asText(f.get("html_url")));
+                            doc.put("name", JsonValues.asText(f.get("name")));
                             doc.put("category", name.startsWith("readme") ? "readme" : "other");
                             docs.add(doc);
                         }
@@ -779,7 +781,7 @@ public class RepoController {
             repos = repoRepo.findAll();
         }
 
-        var mapper = new ObjectMapper();
+        var mapper = JsonMappers.json();
         StringBuilder md = new StringBuilder();
         md.append("# ").append(title).append("\n\n");
         md.append("Generated: ").append(Instant.now().toString()).append("\n\n");

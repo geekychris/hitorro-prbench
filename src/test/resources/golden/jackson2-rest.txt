@@ -1,0 +1,970 @@
+### setup status
+status: 200
+content-type: application/json
+{"githubTokenSet":true,"ready":true}
+
+### setup rate limit
+status: 200
+content-type: application/json
+{"resources":{"core":{"limit":5000,"used":1,"remaining":4999,"reset":1700000000}},"rate":{"limit":5000,"used":1,"remaining":4999,"reset":1700000000}}
+
+### setup rate limit -> github
+GET /rate_limit
+
+### setup token
+status: 200
+content-type: application/json
+{"success":true}
+
+### stored prbench-config.json
+{
+  "githubToken" : "golden-token"
+}
+
+### setup status after token
+status: 200
+content-type: application/json
+{"githubTokenSet":true,"ready":true}
+
+### issue types
+status: 200
+content-type: application/json
+[{"id":1,"code":"NULL_DEREF","name":"Null Dereference","description":"Potential null pointer dereference","category":"BUG","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"},{"id":2,"code":"SQL_INJECTION","name":"SQL Injection","description":"SQL injection vulnerability","category":"SECURITY","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"},{"id":3,"code":"XSS","name":"Cross-Site Scripting","description":"XSS vulnerability","category":"SECURITY","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"},{"id":4,"code":"RESOURCE_LEAK","name":"Resource Leak","description":"Unclosed resource (file, connection, etc.)","category":"BUG","severityHint":"MAJOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":5,"code":"RACE_CONDITION","name":"Race Condition","description":"Potential race condition or thread safety issue","category":"CONCURRENCY","severityHint":"MAJOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":6,"code":"ERROR_HANDLING","name":"Error Handling","description":"Missing or incorrect error handling","category":"BUG","severityHint":"MAJOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":7,"code":"PERFORMANCE","name":"Performance Issue","description":"Performance concern or inefficiency","category":"PERFORMANCE","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":8,"code":"CODE_STYLE","name":"Code Style","description":"Code style or formatting issue","category":"STYLE","severityHint":"NITPICK","active":true,"createdAt":"~","updatedAt":"~"},{"id":9,"code":"NAMING","name":"Naming Convention","description":"Variable/method/class naming issue","category":"STYLE","severityHint":"NITPICK","active":true,"createdAt":"~","updatedAt":"~"},{"id":10,"code":"DEAD_CODE","name":"Dead Code","description":"Unreachable or unused code","category":"MAINTENANCE","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":11,"code":"COMPLEXITY","name":"Complexity","description":"Overly complex code that should be simplified","category":"MAINTENANCE","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":12,"code":"DOCUMENTATION","name":"Documentation","description":"Missing or incorrect documentation","category":"MAINTENANCE","severityHint":"NITPICK","active":true,"createdAt":"~","updatedAt":"~"}]
+
+### issue types all
+status: 200
+content-type: application/json
+[{"id":1,"code":"NULL_DEREF","name":"Null Dereference","description":"Potential null pointer dereference","category":"BUG","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"},{"id":2,"code":"SQL_INJECTION","name":"SQL Injection","description":"SQL injection vulnerability","category":"SECURITY","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"},{"id":3,"code":"XSS","name":"Cross-Site Scripting","description":"XSS vulnerability","category":"SECURITY","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"},{"id":4,"code":"RESOURCE_LEAK","name":"Resource Leak","description":"Unclosed resource (file, connection, etc.)","category":"BUG","severityHint":"MAJOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":5,"code":"RACE_CONDITION","name":"Race Condition","description":"Potential race condition or thread safety issue","category":"CONCURRENCY","severityHint":"MAJOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":6,"code":"ERROR_HANDLING","name":"Error Handling","description":"Missing or incorrect error handling","category":"BUG","severityHint":"MAJOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":7,"code":"PERFORMANCE","name":"Performance Issue","description":"Performance concern or inefficiency","category":"PERFORMANCE","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":8,"code":"CODE_STYLE","name":"Code Style","description":"Code style or formatting issue","category":"STYLE","severityHint":"NITPICK","active":true,"createdAt":"~","updatedAt":"~"},{"id":9,"code":"NAMING","name":"Naming Convention","description":"Variable/method/class naming issue","category":"STYLE","severityHint":"NITPICK","active":true,"createdAt":"~","updatedAt":"~"},{"id":10,"code":"DEAD_CODE","name":"Dead Code","description":"Unreachable or unused code","category":"MAINTENANCE","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":11,"code":"COMPLEXITY","name":"Complexity","description":"Overly complex code that should be simplified","category":"MAINTENANCE","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"},{"id":12,"code":"DOCUMENTATION","name":"Documentation","description":"Missing or incorrect documentation","category":"MAINTENANCE","severityHint":"NITPICK","active":true,"createdAt":"~","updatedAt":"~"}]
+
+### issue type categories
+status: 200
+content-type: application/json
+["BUG","CONCURRENCY","MAINTENANCE","PERFORMANCE","SECURITY","STYLE"]
+
+### issue type 1
+status: 200
+content-type: application/json
+{"id":1,"code":"NULL_DEREF","name":"Null Dereference","description":"Potential null pointer dereference","category":"BUG","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"}
+
+### issue type missing
+status: 404
+content-type: 
+
+
+### issue type by code
+status: 200
+content-type: application/json
+{"id":2,"code":"SQL_INJECTION","name":"SQL Injection","description":"SQL injection vulnerability","category":"SECURITY","severityHint":"CRITICAL","active":true,"createdAt":"~","updatedAt":"~"}
+
+### issue type by code missing
+status: 404
+content-type: 
+
+
+### issue type create
+status: 200
+content-type: application/json
+{"id":13,"code":"GOLDEN","name":"Golden issue","description":"d \"q\"","category":"TEST","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"}
+
+### issue type update
+status: 200
+content-type: application/json
+{"id":13,"code":"GOLDEN","name":"Golden issue 2","description":"changed","category":"TEST","severityHint":"MINOR","active":true,"createdAt":"~","updatedAt":"~"}
+
+### issue type deactivate
+status: 200
+content-type: application/json
+{"deactivated":true}
+
+### issue type create unknown field
+status: 400
+content-type: 
+
+
+### bots empty
+status: 200
+content-type: application/json
+[]
+
+### bot create
+status: 200
+content-type: application/json
+{"id":1,"name":"golden-bot","description":"A bot","workflowFileName":"review.yml","workflowContent":"on: pull_request\njobs: {}\n","waitStrategy":"COMMENTS","timeoutSeconds":120,"createdAt":"~","updatedAt":"~"}
+
+### bot create 2
+status: 200
+content-type: application/json
+{"id":2,"name":"second-bot","description":null,"workflowFileName":null,"workflowContent":null,"waitStrategy":"BOTH","timeoutSeconds":600,"createdAt":"~","updatedAt":"~"}
+
+### bot create duplicate
+exception: ServletException caused by JdbcSQLIntegrityConstraintViolationException
+
+### bot get
+status: 200
+content-type: application/json
+{"id":1,"name":"golden-bot","description":"A bot","workflowFileName":"review.yml","workflowContent":"on: pull_request\njobs: {}\n","waitStrategy":"COMMENTS","timeoutSeconds":120,"createdAt":"~","updatedAt":"~"}
+
+### bot get missing
+status: 404
+content-type: 
+
+
+### bot update
+status: 200
+content-type: application/json
+{"id":2,"name":"second-bot","description":"updated","workflowFileName":null,"workflowContent":null,"waitStrategy":"BOTH","timeoutSeconds":30,"createdAt":"~","updatedAt":"~"}
+
+### bots
+status: 200
+content-type: application/json
+[{"id":1,"name":"golden-bot","description":"A bot","workflowFileName":"review.yml","workflowContent":"on: pull_request\njobs: {}\n","waitStrategy":"COMMENTS","timeoutSeconds":120,"createdAt":"~","updatedAt":"~"},{"id":2,"name":"second-bot","description":"updated","workflowFileName":null,"workflowContent":null,"waitStrategy":"BOTH","timeoutSeconds":30,"createdAt":"~","updatedAt":"~"}]
+
+### repos empty
+status: 200
+content-type: application/json
+[]
+
+### repo create
+status: 200
+content-type: application/json
+{"id":1,"name":"app","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}
+
+### repo create bad url
+status: 400
+content-type: application/json
+{"error":"Invalid GitHub URL"}
+
+### repo create missing url
+status: 400
+content-type: application/json
+{"error":"githubUrl required"}
+
+### repo import
+status: 200
+content-type: application/json
+{"repo":{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"A lib","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]},"alreadyExists":false}
+
+### repo import existing
+status: 200
+content-type: application/json
+{"repo":{"id":1,"name":"app","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]},"alreadyExists":true}
+
+### repo import missing
+status: 400
+content-type: application/json
+{"error":"owner and repoName required"}
+
+### repo import all
+status: 200
+content-type: application/json
+{"imported":1,"skipped":1}
+
+### repo get
+status: 200
+content-type: application/json
+{"id":1,"name":"app","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}
+
+### repo get missing
+status: 404
+content-type: 
+
+
+### repo update
+status: 200
+content-type: application/json
+{"id":1,"name":"Golden App","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"develop","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":"Local notes","language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}
+
+### repo add tag
+status: 200
+content-type: application/json
+{"id":1,"name":"Golden App","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"develop","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"Backend","notes":"Local notes","language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["Backend"]}
+
+### repo add tag -> github
+PUT /repos/golden/app/topics {"names":["backend"]}
+
+### repo add tag 2
+status: 200
+content-type: application/json
+{"id":1,"name":"Golden App","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"develop","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"Backend,golden","notes":"Local notes","language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["Backend","golden"]}
+
+### repo add tag 2 -> github
+PUT /repos/golden/app/topics {"names":["backend","golden"]}
+
+### repo remove tag
+status: 200
+content-type: application/json
+{"id":1,"name":"Golden App","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"develop","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"Backend,golden","notes":"Local notes","language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["Backend","golden"]}
+
+### repo remove tag -> github
+PUT /repos/golden/app/topics {"names":["backend","golden"]}
+
+### repo bulk tag
+status: 200
+content-type: application/json
+{"tagged":2}
+
+### repo bulk tag -> github
+PUT /repos/golden/app/topics {"names":["backend","golden","bulk"]}
+PUT /repos/golden/lib/topics {"names":["bulk"]}
+
+### repo tags
+status: 200
+content-type: application/json
+["Backend","bulk","golden"]
+
+### repo notes
+status: 200
+content-type: application/json
+{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"bulk","notes":"Lib notes é","language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"Lib notes é","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["bulk"]}
+
+### repo notes -> github
+PATCH /repos/golden/lib {"description":"Lib notes é"}
+
+### repos
+status: 200
+content-type: application/json
+[{"id":1,"name":"Golden App","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"develop","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"Backend,golden,bulk","notes":"Local notes","language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["Backend","golden","bulk"]},{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"bulk","notes":"Lib notes é","language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"Lib notes é","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["bulk"]},{"id":3,"name":"svc","githubUrl":"https://github.com/golden-org/svc","owner":"golden-org","repoName":"svc","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":true,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}]
+
+### repos by tag
+status: 200
+content-type: application/json
+[{"id":1,"name":"Golden App","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"develop","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"Backend,golden,bulk","notes":"Local notes","language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["Backend","golden","bulk"]},{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"bulk","notes":"Lib notes é","language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"Lib notes é","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["bulk"]}]
+
+### repos search
+status: 200
+content-type: application/json
+[{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"bulk","notes":"Lib notes é","language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"Lib notes é","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":["bulk"]}]
+
+### repos filtered
+status: 200
+content-type: application/json
+[]
+
+### repo stats
+status: 200
+content-type: application/json
+{"total":3,"byOwner":{"golden-org":1,"golden":2},"byLanguage":{"Kotlin":1},"byTag":{"Backend":1,"bulk":2,"golden":1},"withNotes":2,"withoutNotes":1,"forks":1,"owned":2,"ollamaAvailable":false}
+
+### repo github status
+status: 200
+content-type: application/json
+{"local":{"githubDescription":"","tags":["Backend","golden","bulk"],"notes":"Local notes"},"github":{"description":"Golden repo \"app\" é","topics":["java","golden"]},"synced":true}
+
+### repo github status -> github
+GET /repos/golden/app
+GET /repos/golden/app/topics
+
+### repo sync to github
+status: 200
+content-type: application/json
+{"descriptionPushed":true,"topicsPushed":true}
+
+### repo sync to github -> github
+PATCH /repos/golden/app {"description":"Local notes"}
+PUT /repos/golden/app/topics {"names":["backend","golden","bulk"]}
+
+### repo generate description
+status: 200
+content-type: application/json
+{"generated":false,"error":"Ollama unavailable or failed. Is it running at localhost:11434?"}
+
+### repo generate description -> github
+GET /repos/golden/app/readme
+GET /repos/golden/app
+GET /repos/golden/app/contents
+GET /repos/golden/app/commits?per_page=10
+GET /repos/golden/app/contents/pom.xml
+
+### repo generate descriptions
+status: 200
+content-type: application/json
+{"total":1,"generated":0,"failed":1}
+
+### repo generate descriptions -> github
+GET /repos/golden-org/svc/readme
+GET /repos/golden-org/svc
+GET /repos/golden-org/svc/contents
+GET /repos/golden-org/svc/commits?per_page=10
+GET /repos/golden-org/svc/contents/pom.xml
+
+### repo github browse
+status: 200
+content-type: application/json
+[{"fullName":"golden/app","owner":"golden","name":"app","description":"Golden repo \"app\" é","defaultBranch":"main","private":false,"fork":false,"language":"Java","stars":12,"updatedAt":"~","htmlUrl":"https://github.com/golden/app","registered":true},{"fullName":"golden/lib","owner":"golden","name":"lib","description":"Golden repo \"lib\" é","defaultBranch":"main","private":false,"fork":true,"language":"Java","stars":12,"updatedAt":"~","htmlUrl":"https://github.com/golden/lib","registered":true}]
+
+### repo github browse -> github
+GET /user/repos?visibility=all&sort=updated&per_page=100&affiliation=owner,collaborator,organization_member&per_page=100&page=1
+
+### repo github orgs
+status: 200
+content-type: application/json
+[{"login":"golden-org","id":70,"description":null}]
+
+### repo github orgs -> github
+GET /user/orgs?per_page=100&per_page=100&page=1
+
+### repo github org repos
+status: 200
+content-type: application/json
+[{"fullName":"golden-org/app","owner":"golden-org","name":"app","description":"Golden repo \"app\" é","defaultBranch":"main","private":false,"fork":false,"language":"Java","stars":12,"updatedAt":"~","htmlUrl":"https://github.com/golden-org/app","registered":false},{"fullName":"golden-org/lib","owner":"golden-org","name":"lib","description":"Golden repo \"lib\" é","defaultBranch":"main","private":false,"fork":true,"language":"Java","stars":12,"updatedAt":"~","htmlUrl":"https://github.com/golden-org/lib","registered":false}]
+
+### repo github org repos -> github
+GET /orgs/golden-org/repos?per_page=100&sort=updated&per_page=100&page=1
+
+### repo prs
+status: 200
+content-type: application/json
+[{"id":5005,"number":5,"state":"closed","title":"Fix the thing #5","body":null,"html_url":"https://github.com/golden/app/pull/5","user":{"login":"alice","id":9},"base":{"ref":"main","sha":"1111111111111111111111111111111111111111"},"head":{"ref":"fix/thing","sha":"2222222222222222222222222222222222222222"},"merged_at":"~","created_at":"~","changed_files":3,"additions":40,"deletions":2,"draft":false,"labels":[{"name":"bug"},{"name":"golden"}]},{"id":5005,"number":6,"state":"closed","title":"Fix the thing #6","body":null,"html_url":"https://github.com/golden/app/pull/6","user":{"login":"alice","id":9},"base":{"ref":"main","sha":"1111111111111111111111111111111111111111"},"head":{"ref":"fix/thing","sha":"2222222222222222222222222222222222222222"},"merged_at":"~","created_at":"~","changed_files":3,"additions":40,"deletions":2,"draft":false,"labels":[{"name":"bug"},{"name":"golden"}]}]
+
+### repo prs -> github
+GET /repos/golden/app/pulls?state=all&per_page=30
+
+### repo prs closed
+status: 200
+content-type: application/json
+[{"id":5005,"number":5,"state":"closed","title":"Fix the thing #5","body":null,"html_url":"https://github.com/golden/app/pull/5","user":{"login":"alice","id":9},"base":{"ref":"main","sha":"1111111111111111111111111111111111111111"},"head":{"ref":"fix/thing","sha":"2222222222222222222222222222222222222222"},"merged_at":"~","created_at":"~","changed_files":3,"additions":40,"deletions":2,"draft":false,"labels":[{"name":"bug"},{"name":"golden"}]},{"id":5005,"number":6,"state":"closed","title":"Fix the thing #6","body":null,"html_url":"https://github.com/golden/app/pull/6","user":{"login":"alice","id":9},"base":{"ref":"main","sha":"1111111111111111111111111111111111111111"},"head":{"ref":"fix/thing","sha":"2222222222222222222222222222222222222222"},"merged_at":"~","created_at":"~","changed_files":3,"additions":40,"deletions":2,"draft":false,"labels":[{"name":"bug"},{"name":"golden"}]}]
+
+### repo prs closed -> github
+GET /repos/golden/app/pulls?state=closed&per_page=30
+
+### repo docs before scan
+status: 200
+content-type: application/json
+{"docs":[],"scanned":false}
+
+### repo scan docs
+status: 200
+content-type: application/json
+{"docs":[{"path":"README.md","url":"https://github.com/golden/app/blob/develop/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/app/blob/develop/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/app/blob/develop/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}],"count":3}
+
+### repo scan docs -> github
+GET /repos/golden/app/git/trees/develop?recursive=1
+
+### repo docs
+status: 200
+content-type: application/json
+{"docs":[{"path":"README.md","url":"https://github.com/golden/app/blob/develop/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/app/blob/develop/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/app/blob/develop/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}],"scanned":true,"scannedAt":"~"}
+
+### repo bulk scan docs
+status: 200
+content-type: application/json
+{"total":1,"failed":0,"scanned":1}
+
+### repo bulk scan docs -> github
+GET /repos/golden/lib/git/trees/main?recursive=1
+
+### repo bulk scan docs unscanned
+status: 200
+content-type: application/json
+{"total":1,"failed":0,"scanned":1}
+
+### repo bulk scan docs unscanned -> github
+GET /repos/golden-org/svc/git/trees/main?recursive=1
+
+### repo report
+status: 200
+content-type: application/json
+{"markdown":"# Golden report\n\nGenerated: ~\n\n## Summary\n\n| Repository | Language | Tags | Description |\n|:-----------|:---------|:-----|:------------|\n| [golden/app](https://github.com/golden/app) | - | Backend, golden, bulk | Local notes |\n| [golden/lib](https://github.com/golden/lib) (fork) | Kotlin | bulk | Lib notes é |\n\n## Repository Details\n\n### [app](https://github.com/golden/app)\n\nLocal notes\n\n**Tags:** Backend, golden, bulk\n\n**Language:** Unknown\n\n**Documentation:**\n\n- \uD83D\uDCD6 [README.md](https://github.com/golden/app/blob/develop/README.md)\n- \uD83D\uDCC4 [docs/guide.md](https://github.com/golden/app/blob/develop/docs/guide.md)\n- \uD83E\uDD1D [CONTRIBUTING.md](https://github.com/golden/app/blob/develop/CONTRIBUTING.md)\n\n---\n\n### [lib](https://github.com/golden/lib)\n\nLib notes é\n\n**Tags:** bulk\n\n**Language:** Kotlin | **Fork**\n\n**Documentation:**\n\n- \uD83D\uDCD6 [README.md](https://github.com/golden/lib/blob/main/README.md)\n- \uD83D\uDCC4 [docs/guide.md](https://github.com/golden/lib/blob/main/docs/guide.md)\n- \uD83E\uDD1D [CONTRIBUTING.md](https://github.com/golden/lib/blob/main/CONTRIBUTING.md)\n\n---\n\n## Statistics\n\n- **Total repositories:** 2\n- **Owned:** 1\n- **Forks:** 1\n- **Languages:** Kotlin (1)\n","repoCount":2}
+
+### repo report plain
+status: 200
+content-type: application/json
+{"markdown":"# Repository Report\n\nGenerated: ~\n\n## Summary\n\n| Repository | Language | Tags | Description |\n|:-----------|:---------|:-----|:------------|\n| [golden/app](https://github.com/golden/app) | - | Backend, golden, bulk | Local notes |\n| [golden/lib](https://github.com/golden/lib) (fork) | Kotlin | bulk | Lib notes é |\n| [golden-org/svc](https://github.com/golden-org/svc) | - | - | - |\n## Statistics\n\n- **Total repositories:** 3\n- **Owned:** 2\n- **Forks:** 1\n- **Languages:** Kotlin (1)\n","repoCount":3}
+
+### suites empty
+status: 200
+content-type: application/json
+[]
+
+### suite create
+status: 200
+content-type: application/json
+{"id":1,"name":"Golden suite","description":"desc","exemplarRepo":{"id":1,"name":"Golden App","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"develop","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"Backend,golden,bulk","notes":"Local notes","language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":"[{\"path\":\"README.md\",\"url\":\"https://github.com/golden/app/blob/develop/README.md\",\"name\":\"README.md\",\"category\":\"readme\"},{\"path\":\"docs/guide.md\",\"url\":\"https://github.com/golden/app/blob/develop/docs/guide.md\",\"name\":\"guide.md\",\"category\":\"docs\"},{\"path\":\"CONTRIBUTING.md\",\"url\":\"https://github.com/golden/app/blob/develop/CONTRIBUTING.md\",\"name\":\"CONTRIBUTING.md\",\"category\":\"contributing\"}]","docsScannedAt":"~","createdAt":"~","updatedAt":"~","tagList":["Backend","golden","bulk"]},"prSelectionConfigJson":null,"createdAt":"~","updatedAt":"~"}
+
+### suite create 2
+status: 200
+content-type: application/json
+{"id":2,"name":"To delete","description":null,"exemplarRepo":{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":"bulk","notes":"Lib notes é","language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"Lib notes é","docsJson":"[{\"path\":\"README.md\",\"url\":\"https://github.com/golden/lib/blob/main/README.md\",\"name\":\"README.md\",\"category\":\"readme\"},{\"path\":\"docs/guide.md\",\"url\":\"https://github.com/golden/lib/blob/main/docs/guide.md\",\"name\":\"guide.md\",\"category\":\"docs\"},{\"path\":\"CONTRIBUTING.md\",\"url\":\"https://github.com/golden/lib/blob/main/CONTRIBUTING.md\",\"name\":\"CONTRIBUTING.md\",\"category\":\"contributing\"}]","docsScannedAt":"~","createdAt":"~","updatedAt":"~","tagList":["bulk"]},"prSelectionConfigJson":null,"createdAt":"~","updatedAt":"~"}
+
+### suite get
+exception: ServletException caused by InvalidDefinitionException
+
+### suite get missing
+status: 404
+content-type: 
+
+
+### suite add pr
+exception: ServletException caused by InvalidDefinitionException
+
+### suite add pr -> github
+GET /repos/golden/app/pulls/5
+
+### suite add pr 2
+exception: ServletException caused by InvalidDefinitionException
+
+### suite add pr 2 -> github
+GET /repos/golden/app/pulls/6
+
+### suite add pr duplicate
+status: 200
+content-type: application/json
+{"error":"could not execute statement [Unique index or primary key violation: \"PUBLIC.CONSTRAINT_38E INDEX PUBLIC.CONSTRAINT_INDEX_38 ON PUBLIC.SUITE_PRS(SUITE_ID NULLS FIRST, ORIGINAL_PR_NUMBER NULLS FIRST) VALUES ( /* key:1 */ CAST(1 AS BIGINT), 5)\"; SQL statement:\ninsert into suite_prs (additions,author,base_branch,base_commit_sha,created_at,deletions,description,files_changed,head_branch,head_commit_sha,merged_at,metadata_json,original_pr_number,pr_labels,suite_id,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default) [23505-240]] [insert into suite_prs (additions,author,base_branch,base_commit_sha,created_at,deletions,description,files_changed,head_branch,head_commit_sha,merged_at,metadata_json,original_pr_number,pr_labels,suite_id,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)]; SQL [insert into suite_prs (additions,author,base_branch,base_commit_sha,created_at,deletions,description,files_changed,head_branch,head_commit_sha,merged_at,metadata_json,original_pr_number,pr_labels,suite_id,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)]; constraint [PUBLIC.CONSTRAINT_38E INDEX PUBLIC.CONSTRAINT_INDEX_38]"}
+
+### suite add pr duplicate -> github
+GET /repos/golden/app/pulls/5
+
+### suite prs
+exception: ServletException caused by InvalidDefinitionException
+
+### suite collect original comments
+status: 200
+content-type: application/json
+{"collected":4}
+
+### suite collect original comments -> github
+GET /repos/golden/app/pulls/5/comments?per_page=100&page=1
+GET /repos/golden/app/pulls/5/reviews?per_page=100&page=1
+GET /repos/golden/app/issues/5/comments?per_page=100&page=1
+
+### suite remove pr
+status: 200
+content-type: application/json
+{"deleted":true}
+
+### suites
+exception: ServletException caused by InvalidDefinitionException
+
+### suites by repo
+exception: ServletException caused by InvalidDefinitionException
+
+### suite delete
+status: 200
+content-type: application/json
+{"deleted":true}
+
+### runs
+exception: ServletException caused by InvalidDefinitionException
+
+### runs by suite
+exception: ServletException caused by InvalidDefinitionException
+
+### run get
+exception: ServletException caused by InvalidDefinitionException
+
+### run get missing
+status: 404
+content-type: 
+
+
+### run progress
+status: 200
+content-type: application/json
+{"COMPLETED":1}
+
+### run progress empty
+status: 200
+content-type: application/json
+{}
+
+### run replay prs
+exception: ServletException caused by InvalidDefinitionException
+
+### run bot snapshots
+exception: ServletException caused by InvalidDefinitionException
+
+### run replay pr comments
+exception: ServletException caused by InvalidDefinitionException
+
+### run similarities
+status: 200
+content-type: application/json
+[]
+
+### run cancel
+status: 200
+content-type: application/json
+{"cancelled":true}
+
+### run cancel missing
+status: 404
+content-type: 
+
+
+### run create missing suite
+status: 404
+content-type: 
+
+
+### grading queue
+status: 200
+content-type: application/json
+[]
+
+### grading queue by run
+exception: ServletException caused by InvalidDefinitionException
+
+### grading progress
+status: 200
+content-type: application/json
+{}
+
+### grading create
+status: 200
+content-type: application/json
+{"id":1,"commentId":1,"commentTableType":"REVIEW","graderType":"HUMAN","graderId":"alice","verdict":"TRUE_POSITIVE","severity":"MAJOR","stars":4,"flagged":false,"notes":"good","createdAt":"~"}
+
+### grading update
+status: 200
+content-type: application/json
+{"id":1,"commentId":1,"commentTableType":"REVIEW","graderType":"HUMAN","graderId":"alice","verdict":"TRUE_POSITIVE","severity":"MAJOR","stars":5,"flagged":true,"notes":"great","createdAt":"~"}
+
+### grading bulk
+status: 200
+content-type: application/json
+[{"id":2,"commentId":2,"commentTableType":"REVIEW","graderType":"HUMAN","graderId":null,"verdict":"FALSE_POSITIVE","severity":null,"stars":0,"flagged":false,"notes":null,"createdAt":"~"}]
+
+### comment gradings
+status: 200
+content-type: application/json
+[{"id":1,"commentId":1,"commentTableType":"REVIEW","graderType":"HUMAN","graderId":"alice","verdict":"TRUE_POSITIVE","severity":"MAJOR","stars":5,"flagged":true,"notes":"great","createdAt":"~"}]
+
+### comment gradings original
+status: 200
+content-type: application/json
+[]
+
+### grading progress after
+status: 200
+content-type: application/json
+{"totalComments":2,"gradedCount":2,"ungradedCount":0,"verdicts":{"TRUE_POSITIVE":1,"FALSE_POSITIVE":1}}
+
+### grading delete
+status: 200
+content-type: application/json
+{"deleted":true}
+
+### golden dataset empty
+status: 200
+content-type: application/json
+[]
+
+### golden promote
+exception: ServletException caused by InvalidDefinitionException
+
+### golden promote original
+status: 404
+content-type: 
+
+
+### golden promote missing
+status: 404
+content-type: 
+
+
+### golden update
+exception: ServletException caused by InvalidDefinitionException
+
+### golden dataset
+exception: ServletException caused by InvalidDefinitionException
+
+### golden export
+exception: ServletException caused by InvalidDefinitionException
+
+### golden deactivate
+status: 404
+content-type: 
+
+
+### golden dataset all
+exception: ServletException caused by InvalidDefinitionException
+
+### report run
+status: 200
+content-type: application/json
+{"runId":1,"totalReplayPrs":1,"totalComments":2,"botStats":[{"botId":1,"botName":"golden-bot","totalComments":2,"gradedCount":1,"verdicts":{"TRUE_POSITIVE":1}}]}
+
+### report run missing
+status: 200
+content-type: application/json
+{"runId":99,"totalReplayPrs":0,"totalComments":0,"botStats":[]}
+
+### report comparison
+status: 200
+content-type: application/json
+{"runId":1,"goldenEntryCount":1,"botComparisons":[{"botId":1,"botName":"golden-bot","truePositives":1,"falsePositives":1,"falseNegatives":0,"precision":0.5,"recall":1.0,"f1Score":0.667}]}
+
+### report bot trend
+status: 200
+content-type: application/json
+[{"runId":1,"runName":"Seeded run","createdAt":"2020-01-02T11:04:05Z","precision":0.5,"recall":1.0,"f1Score":0.667}]
+
+### report bot trend no suite
+status: 400
+content-type: application/json
+{"error":"suiteId required"}
+
+### report significance
+status: 200
+content-type: application/json
+{"runAId":1,"runBId":2,"bothFound":0,"onlyA":1,"onlyB":0,"neither":0,"chiSquared":0.0,"pValue":0.5,"significant":false}
+
+### run cleanup
+status: 200
+content-type: application/json
+{"cleaned":1}
+
+### run cleanup -> github
+PATCH /repos/golden-mirror/app-mirror/pulls/42 {"state":"closed"}
+DELETE /repos/golden-mirror/app-mirror/git/refs/heads/replay/head-5
+DELETE /repos/golden-mirror/app-mirror/git/refs/heads/replay/base-5
+
+### bot delete
+status: 200
+content-type: application/json
+{"deleted":true}
+
+### issue type delete missing
+status: 404
+content-type: 
+
+
+### repo delete
+status: 200
+content-type: application/json
+{"deleted":true}
+
+### malformed body
+status: 400
+content-type: 
+
+
+### wrong content type
+status: 415
+content-type: 
+
+
+### actuator health
+status: 200
+content-type: application/vnd.spring-boot.actuator.v3+json
+{"status":"UP","groups":["liveness","readiness"]}
+
+### actuator links
+status: 200
+content-type: application/vnd.spring-boot.actuator.v3+json
+{"_links":{"self":{"href":"http://localhost/actuator","templated":false},"health":{"href":"http://localhost/actuator/health","templated":false},"health-path":{"href":"http://localhost/actuator/health/{*path}","templated":true}}}
+
+### actuator health liveness
+status: 200
+content-type: application/vnd.spring-boot.actuator.v3+json
+{"status":"UP"}
+
+### openapi document
+status: 200
+content-type: application/json
+{"openapi":"3.1.0","info":{"title":"OpenAPI definition","version":"v0"},"servers":[{"url":"http://localhost","description":"Generated server url"}],"paths":{"/api/repos/{id}":{"get":{"tags":["repo-controller"],"operationId":"get","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"put":{"tags":["repo-controller"],"operationId":"update","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"delete":{"tags":["repo-controller"],"operationId":"delete","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/issue-types/{id}":{"get":{"tags":["issue-type-controller"],"operationId":"get_1","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"put":{"tags":["issue-type-controller"],"operationId":"update_1","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"delete":{"tags":["issue-type-controller"],"operationId":"deactivate","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/gradings/{id}":{"put":{"tags":["grading-controller"],"operationId":"update_2","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"delete":{"tags":["grading-controller"],"operationId":"delete_1","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/golden-dataset/{id}":{"put":{"tags":["golden-dataset-controller"],"operationId":"update_3","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"delete":{"tags":["golden-dataset-controller"],"operationId":"deactivate_1","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/bots/{id}":{"get":{"tags":["bot-controller"],"operationId":"get_2","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"put":{"tags":["bot-controller"],"operationId":"update_4","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"delete":{"tags":["bot-controller"],"operationId":"delete_2","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/suites":{"get":{"tags":["suite-controller"],"operationId":"list","parameters":[{"name":"repoId","in":"query","required":false,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BenchmarkSuite"}}}}}}},"post":{"tags":["suite-controller"],"operationId":"create","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/suites/{id}/prs":{"get":{"tags":["suite-controller"],"operationId":"listPrs","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/SuitePr"}}}}}}},"post":{"tags":["suite-controller"],"operationId":"addPr","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/suites/suite-prs/{suitePrId}/collect-original-comments":{"post":{"tags":["suite-controller"],"operationId":"collectOriginalComments","parameters":[{"name":"suitePrId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/setup/token":{"post":{"tags":["setup-controller"],"operationId":"setToken","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/runs":{"get":{"tags":["run-controller"],"operationId":"list_1","parameters":[{"name":"suiteId","in":"query","required":false,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BenchmarkRun"}}}}}}},"post":{"tags":["run-controller"],"operationId":"create_1","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/runs/{id}/cleanup":{"post":{"tags":["run-controller"],"operationId":"cleanup","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/runs/{id}/cancel":{"post":{"tags":["run-controller"],"operationId":"cancel","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos":{"get":{"tags":["repo-controller"],"operationId":"list_2","parameters":[{"name":"tag","in":"query","required":false,"schema":{"type":"string"}},{"name":"search","in":"query","required":false,"schema":{"type":"string"}},{"name":"language","in":"query","required":false,"schema":{"type":"string"}},{"name":"owner","in":"query","required":false,"schema":{"type":"string"}},{"name":"hasNotes","in":"query","required":false,"schema":{"type":"boolean"}},{"name":"isFork","in":"query","required":false,"schema":{"type":"boolean"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/ExemplarRepo"}}}}}}},"post":{"tags":["repo-controller"],"operationId":"create_2","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/tags":{"post":{"tags":["repo-controller"],"operationId":"addTag","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/sync-to-github":{"post":{"tags":["repo-controller"],"operationId":"syncToGitHub","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/scan-docs":{"post":{"tags":["repo-controller"],"operationId":"scanDocs","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/notes":{"post":{"tags":["repo-controller"],"operationId":"setNotes","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/generate-description":{"post":{"tags":["repo-controller"],"operationId":"generateDescription","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"save","in":"query","required":false,"schema":{"type":"boolean","default":true}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/meta/scan-docs":{"post":{"tags":["repo-controller"],"operationId":"bulkScanDocs","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}}},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/meta/report":{"post":{"tags":["repo-controller"],"operationId":"generateReport","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/meta/generate-descriptions":{"post":{"tags":["repo-controller"],"operationId":"generateAllDescriptions","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/import":{"post":{"tags":["repo-controller"],"operationId":"importFromGitHub","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/import-all":{"post":{"tags":["repo-controller"],"operationId":"importAll","requestBody":{"content":{"application/json":{"schema":{"type":"array","items":{"type":"object","additionalProperties":{"type":"string"}}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/bulk-tag":{"post":{"tags":["repo-controller"],"operationId":"bulkTag","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/issue-types":{"get":{"tags":["issue-type-controller"],"operationId":"list_3","parameters":[{"name":"activeOnly","in":"query","required":false,"schema":{"type":"boolean","default":true}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/IssueType"}}}}}}},"post":{"tags":["issue-type-controller"],"operationId":"create_3","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/gradings":{"post":{"tags":["grading-controller"],"operationId":"create_4","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/gradings/bulk":{"post":{"tags":["grading-controller"],"operationId":"bulkGrade","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/golden-dataset/promote":{"post":{"tags":["golden-dataset-controller"],"operationId":"promote","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/bots":{"get":{"tags":["bot-controller"],"operationId":"list_4","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Bot"}}}}}}},"post":{"tags":["bot-controller"],"operationId":"create_5","requestBody":{"content":{"application/json":{"schema":{"type":"object","additionalProperties":{}}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/suites/{id}":{"get":{"tags":["suite-controller"],"operationId":"get_3","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}},"delete":{"tags":["suite-controller"],"operationId":"delete_3","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/setup/status":{"get":{"tags":["setup-controller"],"operationId":"status","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/setup/rate-limit":{"get":{"tags":["setup-controller"],"operationId":"rateLimit","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/runs/{runId}/similarities":{"get":{"tags":["run-controller"],"operationId":"similarities","parameters":[{"name":"runId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/runs/{id}":{"get":{"tags":["run-controller"],"operationId":"get_4","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/runs/{id}/replay-prs":{"get":{"tags":["run-controller"],"operationId":"replayPrs","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/ReplayPr"}}}}}}}},"/api/runs/{id}/progress":{"get":{"tags":["run-controller"],"operationId":"progress","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/runs/{id}/bot-snapshots":{"get":{"tags":["run-controller"],"operationId":"botSnapshots","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BotSnapshot"}}}}}}}},"/api/runs/replay-prs/{replayPrId}/comments":{"get":{"tags":["run-controller"],"operationId":"replayPrComments","parameters":[{"name":"replayPrId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/ReviewComment"}}}}}}}},"/api/repos/{id}/prs":{"get":{"tags":["repo-controller"],"operationId":"listPrs_1","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"state","in":"query","required":false,"schema":{"type":"string","default":"all"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/github-status":{"get":{"tags":["repo-controller"],"operationId":"githubStatus","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/docs":{"get":{"tags":["repo-controller"],"operationId":"getDocs","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/meta/tags":{"get":{"tags":["repo-controller"],"operationId":"allTags","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/meta/stats":{"get":{"tags":["repo-controller"],"operationId":"stats","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/github/orgs":{"get":{"tags":["repo-controller"],"operationId":"listOrgs","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/github/orgs/{org}/repos":{"get":{"tags":["repo-controller"],"operationId":"listOrgRepos","parameters":[{"name":"org","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/github/browse":{"get":{"tags":["repo-controller"],"operationId":"browseGitHubRepos","parameters":[{"name":"visibility","in":"query","required":false,"schema":{"type":"string","default":"all"}},{"name":"sort","in":"query","required":false,"schema":{"type":"string","default":"updated"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/reports/runs/{runId}":{"get":{"tags":["report-controller"],"operationId":"runReport","parameters":[{"name":"runId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/reports/runs/{runId}/comparison":{"get":{"tags":["report-controller"],"operationId":"goldenComparison","parameters":[{"name":"runId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/reports/runs/{runAId}/significance":{"get":{"tags":["report-controller"],"operationId":"significance","parameters":[{"name":"runAId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"compareRunId","in":"query","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/reports/bots/{botId}/trend":{"get":{"tags":["report-controller"],"operationId":"botTrend","parameters":[{"name":"botId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"suiteId","in":"query","required":false,"schema":{"type":"integer","format":"int64"}},{"name":"limit","in":"query","required":false,"schema":{"type":"integer","format":"int32","default":10}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/issue-types/code/{code}":{"get":{"tags":["issue-type-controller"],"operationId":"getByCode","parameters":[{"name":"code","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/issue-types/categories":{"get":{"tags":["issue-type-controller"],"operationId":"categories","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"type":"string"}}}}}}}},"/api/grading-queue":{"get":{"tags":["grading-controller"],"operationId":"gradingQueue","parameters":[{"name":"runId","in":"query","required":false,"schema":{"type":"integer","format":"int64"}},{"name":"limit","in":"query","required":false,"schema":{"type":"integer","format":"int32","default":50}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/grading-progress":{"get":{"tags":["grading-controller"],"operationId":"gradingProgress","parameters":[{"name":"runId","in":"query","required":false,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/golden-dataset":{"get":{"tags":["golden-dataset-controller"],"operationId":"list_5","parameters":[{"name":"activeOnly","in":"query","required":false,"schema":{"type":"boolean","default":true}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/GoldenDatasetEntry"}}}}}}}},"/api/golden-dataset/export":{"get":{"tags":["golden-dataset-controller"],"operationId":"export","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/comments/{commentId}/gradings":{"get":{"tags":["grading-controller"],"operationId":"getForComment","parameters":[{"name":"commentId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"type","in":"query","required":false,"schema":{"type":"string","default":"REVIEW"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Grading"}}}}}}}},"/api/suites/{suiteId}/prs/{prId}":{"delete":{"tags":["suite-controller"],"operationId":"removePr","parameters":[{"name":"suiteId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"prId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/repos/{id}/tags/{tag}":{"delete":{"tags":["repo-controller"],"operationId":"removeTag","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"tag","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}}},"components":{"schemas":{"BenchmarkSuite":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"exemplarRepo":{"$ref":"#/components/schemas/ExemplarRepo"},"prSelectionConfigJson":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}}},"ExemplarRepo":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"githubUrl":{"type":"string"},"owner":{"type":"string"},"repoName":{"type":"string"},"mirrorOrg":{"type":"string"},"mirrorRepoName":{"type":"string"},"mirrorRepoUrl":{"type":"string"},"defaultBranch":{"type":"string"},"lastSyncedAt":{"type":"string","format":"date-time"},"syncStatus":{"type":"string"},"configJson":{"type":"string"},"tags":{"type":"string"},"notes":{"type":"string"},"language":{"type":"string"},"fork":{"type":"boolean"},"isPrivate":{"type":"boolean"},"stars":{"type":"integer","format":"int32"},"githubDescription":{"type":"string"},"docsJson":{"type":"string"},"docsScannedAt":{"type":"string","format":"date-time"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"tagList":{"type":"array","items":{"type":"string"}}}},"SuitePr":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"suite":{"$ref":"#/components/schemas/BenchmarkSuite"},"originalPrNumber":{"type":"integer","format":"int32"},"title":{"type":"string"},"description":{"type":"string"},"baseCommitSha":{"type":"string"},"headCommitSha":{"type":"string"},"baseBranch":{"type":"string"},"headBranch":{"type":"string"},"author":{"type":"string"},"mergedAt":{"type":"string","format":"date-time"},"filesChanged":{"type":"integer","format":"int32"},"additions":{"type":"integer","format":"int32"},"deletions":{"type":"integer","format":"int32"},"prLabels":{"type":"string"},"metadataJson":{"type":"string"},"createdAt":{"type":"string","format":"date-time"}}},"BenchmarkRun":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"suite":{"$ref":"#/components/schemas/BenchmarkSuite"},"name":{"type":"string"},"status":{"type":"string"},"concurrency":{"type":"integer","format":"int32"},"goldenDatasetEnabled":{"type":"boolean"},"startedAt":{"type":"string","format":"date-time"},"completedAt":{"type":"string","format":"date-time"},"errorMessage":{"type":"string"},"configJson":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"bots":{"type":"array","items":{"$ref":"#/components/schemas/Bot"}}}},"Bot":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"workflowFileName":{"type":"string"},"workflowContent":{"type":"string"},"waitStrategy":{"type":"string"},"timeoutSeconds":{"type":"integer","format":"int32"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}}},"ReplayPr":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"run":{"$ref":"#/components/schemas/BenchmarkRun"},"suitePr":{"$ref":"#/components/schemas/SuitePr"},"bot":{"$ref":"#/components/schemas/Bot"},"mirrorPrNumber":{"type":"integer","format":"int32"},"mirrorPrUrl":{"type":"string"},"baseBranch":{"type":"string"},"headBranch":{"type":"string"},"status":{"type":"string"},"errorMessage":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"completedAt":{"type":"string","format":"date-time"}}},"BotSnapshot":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"run":{"$ref":"#/components/schemas/BenchmarkRun"},"bot":{"$ref":"#/components/schemas/Bot"},"name":{"type":"string"},"workflowFileName":{"type":"string"},"workflowContent":{"type":"string"},"waitStrategy":{"type":"string"},"timeoutSeconds":{"type":"integer","format":"int32"},"snapshottedAt":{"type":"string","format":"date-time"}}},"ReviewComment":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"replayPr":{"$ref":"#/components/schemas/ReplayPr"},"source":{"type":"string"},"bot":{"$ref":"#/components/schemas/Bot"},"githubCommentId":{"type":"integer","format":"int64"},"commentType":{"type":"string"},"filePath":{"type":"string"},"lineNumber":{"type":"integer","format":"int32"},"diffHunk":{"type":"string"},"body":{"type":"string"},"bodyNormalized":{"type":"string"},"fingerprintHash":{"type":"string"},"githubCreatedAt":{"type":"string","format":"date-time"},"metadataJson":{"type":"string"},"createdAt":{"type":"string","format":"date-time"}}},"IssueType":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"code":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"category":{"type":"string"},"severityHint":{"type":"string"},"active":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}}},"GoldenDatasetEntry":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"suitePr":{"$ref":"#/components/schemas/SuitePr"},"sourceCommentId":{"type":"integer","format":"int64"},"sourceCommentType":{"type":"string"},"filePath":{"type":"string"},"lineNumber":{"type":"integer","format":"int32"},"issueType":{"type":"string"},"description":{"type":"string"},"canonicalBody":{"type":"string"},"active":{"type":"boolean"},"includedByDefault":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}}},"Grading":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"commentId":{"type":"integer","format":"int64"},"commentTableType":{"type":"string"},"graderType":{"type":"string"},"graderId":{"type":"string"},"verdict":{"type":"string"},"severity":{"type":"string"},"stars":{"type":"integer","format":"int32"},"flagged":{"type":"boolean"},"notes":{"type":"string"},"createdAt":{"type":"string","format":"date-time"}}}}}}
+
+### stored table benchmark_suites
+id=1 | name=Golden suite | pr_selection_config_json=null
+
+### stored table exemplar_repos
+id=1 | name=Golden App | tags=Backend,golden,bulk | notes=Local notes | docs_json=[{"path":"README.md","url":"https://github.com/golden/app/blob/develop/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/app/blob/develop/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/app/blob/develop/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}] | config_json=null
+id=2 | name=lib | tags=bulk | notes=Lib notes é | docs_json=[{"path":"README.md","url":"https://github.com/golden/lib/blob/main/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/lib/blob/main/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/lib/blob/main/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}] | config_json=null
+
+### stored table golden_dataset_entries
+id=1 | suite_pr_id=1 | source_comment_id=1 | source_comment_type=REVIEW | issue_type=NULL_DEREF | description=null deref | canonical_body=x may be null | active=TRUE | included_by_default=FALSE
+
+### stored table gradings
+id=1 | comment_id=1 | comment_table_type=REVIEW | grader_type=HUMAN | verdict=TRUE_POSITIVE | severity=MAJOR | stars=5 | flagged=TRUE | notes=great
+
+### stored table original_comments
+
+
+### stored table suite_prs
+id=1 | original_pr_number=5 | title=Fix the thing #5 | description= | author=alice | pr_labels=null | metadata_json=null
+
+### converter-write record
+ok {"zeta":"z","alpha":2,"when":"2023-11-14T22:13:20.123Z","tags":["a","b"]}
+
+### converter-write bean
+ok {"zulu":"z","alpha":1,"nothing":null,"created":"2023-11-14T22:13:20.123+00:00","day":"2026-11-20","active":true}
+
+### converter-write empty-bean
+error HttpMessageConversionException
+
+### converter-write instant
+ok "2023-11-14T22:13:20.123456789Z"
+
+### converter-write local-date
+ok "2026-11-20"
+
+### converter-write local-date-time
+ok "2026-11-20T13:45:30.5"
+
+### converter-write offset-date-time
+ok "2026-11-20T13:45:30-08:00"
+
+### converter-write duration
+ok "PT1M30.000000005S"
+
+### converter-write util-date
+ok "2023-11-14T22:13:20.123+00:00"
+
+### converter-write optional-present
+ok "x"
+
+### converter-write optional-empty
+ok null
+
+### converter-write enum
+ok "GREEN"
+
+### converter-write locale
+ok "fr_CA"
+
+### converter-write locale-map-key
+ok {"fr_CA":1}
+
+### converter-write locale-script
+ok "zh_TW_#Hant"
+
+### converter-write locale-country-only
+ok "_US"
+
+### converter-write month
+ok "NOVEMBER"
+
+### converter-write day-of-week
+ok "FRIDAY"
+
+### converter-write zoned-date-time
+ok "2026-11-20T13:45:30-08:00"
+
+### converter-write local-time
+ok "13:45:30.001"
+
+### converter-write year-month
+ok "2026-11"
+
+### converter-write period
+ok "P1Y2M3D"
+
+### converter-write zone-id
+ok "Europe/Berlin"
+
+### converter-write sql-timestamp
+ok "2023-11-14T22:13:20.123+00:00"
+
+### converter-write calendar
+ok "2023-11-14T22:13:20.123+00:00"
+
+### converter-write uri
+ok "https://example.com/a?b=c"
+
+### converter-write path
+ok "file:///tmp/x"
+
+### converter-write file
+ok "/tmp/x"
+
+### converter-write class
+ok "java.lang.String"
+
+### converter-write pattern
+ok "a+b"
+
+### converter-write atomic
+ok 5
+
+### converter-write charset
+ok "UTF-8"
+
+### converter-write currency
+ok "EUR"
+
+### converter-write time-zone
+ok "UTC"
+
+### converter-write inet
+ok "localhost"
+
+### converter-write stream-of-ints
+ok [0,1,2]
+
+### converter-write set
+ok ["b","a"]
+
+### converter-write uuid
+ok "123e4567-e89b-12d3-a456-426614174000"
+
+### converter-write bytes
+ok "AQID/w=="
+
+### converter-write chars
+ok "hi"
+
+### converter-write big-decimal
+ok 1E+30
+
+### converter-write big-decimal-plain
+ok 12.50
+
+### converter-write big-integer
+ok 123456789012345678901234567890
+
+### converter-write double-nan
+ok "NaN"
+
+### converter-write double-inf
+ok "Infinity"
+
+### converter-write float
+ok 1.1
+
+### converter-write double
+ok 0.30000000000000004
+
+### converter-write long-max
+ok 9223372036854775807
+
+### converter-write map-odd-keys
+error HttpMessageNotWritableException
+
+### converter-write map-null-values
+ok {"b":null,"a":1}
+
+### converter-write tree-map
+ok {"a":2,"b":1}
+
+### converter-write string-escapes
+ok "quote\" backslash\\ tab\t nl\n ctrl\u0001 unié emoji\uD83D\uDE00 slash/ lt< amp&"
+
+### converter-write nested-400
+ok [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[...(809 chars)
+
+### converter-write nested-1000
+ok [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[...(2009 chars)
+
+### converter-write nested-1001
+error HttpMessageNotWritableException
+
+### converter-read target
+ok Target:count=3 name=n tags=[x] when=2026-11-20T13:45:30Z color=RED ratio=0.5
+
+### converter-read target-unknown-property
+ok Target:count=3 name=null tags=null when=null color=null ratio=0.0
+
+### converter-read target-null-primitive
+ok Target:count=0 name=null tags=null when=null color=null ratio=0.0
+
+### converter-read target-float-as-int
+ok Target:count=1 name=null tags=null when=null color=null ratio=0.0
+
+### converter-read target-string-as-int
+ok Target:count=12 name=null tags=null when=null color=null ratio=0.0
+
+### converter-read target-empty-string-as-int
+ok Target:count=0 name=null tags=null when=null color=null ratio=0.0
+
+### converter-read target-bool-as-int
+error HttpMessageNotReadableException
+
+### converter-read target-int-as-string
+ok Target:count=0 name=12 tags=null when=null color=null ratio=0.0
+
+### converter-read target-single-as-array
+error HttpMessageNotReadableException
+
+### converter-read target-epoch-millis-instant
+ok Target:count=0 name=null tags=null when=+55840-11-08T22:15:23Z color=null ratio=0.0
+
+### converter-read target-epoch-decimal-instant
+ok Target:count=0 name=null tags=null when=2023-11-14T22:13:20.123456789Z color=null ratio=0.0
+
+### converter-read target-unknown-enum
+error HttpMessageNotReadableException
+
+### converter-read target-enum-index
+ok Target:count=0 name=null tags=null when=null color=GREEN ratio=0.0
+
+### converter-read target-trailing-tokens
+ok Target:count=1 name=null tags=null when=null color=null ratio=0.0
+
+### converter-read target-comments
+error HttpMessageNotReadableException
+
+### converter-read target-single-quotes
+error HttpMessageNotReadableException
+
+### converter-read target-duplicate-keys
+ok Target:count=2 name=null tags=null when=null color=null ratio=0.0
+
+### converter-read target-nan
+error HttpMessageNotReadableException
+
+### converter-read target-empty
+error HttpMessageNotReadableException
+
+### converter-read target-locale-style-instant
+ok Target:count=0 name=null tags=null when=2026-11-20T12:45:30.123Z color=null ratio=0.0
+
+### converter-read-jdk locale
+ok JdkTarget:locale=fr_CA|fr-CA month=null byLocale=null
+
+### converter-read-jdk locale-tag
+ok JdkTarget:locale=fr_CA|fr-CA month=null byLocale=null
+
+### converter-read-jdk locale-script
+ok JdkTarget:locale=zh_TW_#Hant|zh-Hant-TW month=null byLocale=null
+
+### converter-read-jdk locale-extension
+ok JdkTarget:locale=de_DE_#u-co-phonebk|de-DE-u-co-phonebk month=null byLocale=null
+
+### converter-read-jdk locale-padded
+ok JdkTarget:locale=en_US|en-US month=null byLocale=null
+
+### converter-read-jdk locale-empty
+ok JdkTarget:locale=|und month=null byLocale=null
+
+### converter-read-jdk locale-map-key
+ok JdkTarget:locale=null month=null byLocale={sr__#Latn=1,  en =2}
+
+### converter-read-jdk month-name
+ok JdkTarget:locale=null month=NOVEMBER byLocale=null
+
+### converter-read-jdk month-number
+ok JdkTarget:locale=null month=NOVEMBER byLocale=null
+
+### converter-read-map map
+ok LinkedHashMap{b=Integer:1,a=ArrayList[Integer:1,Double:2.5,String:s,null,Boolean:true,],c=LinkedHashMap{x=Double:1.1,},}
+
+### converter-read-map big-numbers
+ok LinkedHashMap{i=BigInteger:12345678901234567890,d=Double:1.0,e=Double:Infinity,}
+
+### converter-read-map leading-zero
+error HttpMessageNotReadableException
+
+### converter-read-map trailing-comma
+error HttpMessageNotReadableException
+
+### converter-read-map trailing-garbage
+ok LinkedHashMap{a=Integer:1,}
+
+### converter-read-map nested-500
+ok LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHas...(9012 chars)
+
+### converter-read-map nested-501
+ok LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHas...(9030 chars)
+
+### converter-read-map nested-1000
+ok LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHashMap{a=LinkedHas...(18012 chars)
+
+### converter-read-map nested-1001
+error HttpMessageNotReadableException
+
+### converter-read-map long-name
+error HttpMessageNotReadableException
+
+### converter-read-map long-number
+error HttpMessageNotReadableException
+

@@ -1,8 +1,9 @@
 package com.hitorro.prbench.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import com.hitorro.util.json.JsonMappers;
+import tools.jackson.databind.PropertyNamingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import com.hitorro.util.json.JsonValues;
 
 /**
  * GitHub REST API client using personal access token authentication.
@@ -44,8 +46,9 @@ public class GitHubApiService {
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
-        this.mapper = new ObjectMapper();
-        this.mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+        this.mapper = JsonMappers.builder()
+                .propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
+                .build();
     }
 
     @PostConstruct
@@ -68,10 +71,10 @@ public class GitHubApiService {
     private void loadConfig() {
         try {
             if (Files.exists(CONFIG_FILE)) {
-                var configMapper = new ObjectMapper();
+                var configMapper = JsonMappers.json();
                 var config = configMapper.readTree(CONFIG_FILE.toFile());
-                if (config.has("githubToken") && !config.get("githubToken").asText().isBlank()) {
-                    this.githubToken = config.get("githubToken").asText();
+                if (config.has("githubToken") && !JsonValues.asText(config.get("githubToken")).isBlank()) {
+                    this.githubToken = JsonValues.asText(config.get("githubToken"));
                     log.info("Loaded GitHub token from {}", CONFIG_FILE);
                 }
             }
@@ -83,8 +86,9 @@ public class GitHubApiService {
     private void saveConfig() {
         try {
             Files.createDirectories(CONFIG_FILE.getParent());
-            var configMapper = new ObjectMapper()
-                    .enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
+            var configMapper = JsonMappers.builder()
+                    .enable(tools.jackson.databind.SerializationFeature.INDENT_OUTPUT)
+                    .build();
             var node = configMapper.createObjectNode();
             if (githubToken != null) node.put("githubToken", githubToken);
             configMapper.writeValue(CONFIG_FILE.toFile(), node);
@@ -162,7 +166,7 @@ public class GitHubApiService {
         var node = get("/repos/" + owner + "/" + repo + "/topics");
         List<String> topics = new ArrayList<>();
         if (node.has("names") && node.get("names").isArray()) {
-            node.get("names").forEach(t -> topics.add(t.asText()));
+            node.get("names").forEach(t -> topics.add(JsonValues.asText(t)));
         }
         return topics;
     }
@@ -184,14 +188,14 @@ public class GitHubApiService {
     public List<String> listGitTags(String owner, String repo) throws Exception {
         var tags = getAllPages("/repos/" + owner + "/" + repo + "/tags");
         List<String> names = new ArrayList<>();
-        for (var t : tags) names.add(t.get("name").asText());
+        for (var t : tags) names.add(JsonValues.asText(t.get("name")));
         return names;
     }
 
     /** Get HEAD SHA of the default branch. */
     public String getHeadSha(String owner, String repo, String branch) throws Exception {
         var ref = get("/repos/" + owner + "/" + repo + "/git/ref/heads/" + branch);
-        return ref.get("object").get("sha").asText();
+        return JsonValues.asText(ref.get("object").get("sha"));
     }
 
     /** List PRs for a repo with optional state filter. */

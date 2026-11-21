@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import com.hitorro.util.json.JsonValues;
 
 @RestController
 @RequestMapping("/api/suites")
@@ -79,19 +80,19 @@ public class SuiteController {
                 var suitePr = new SuitePr();
                 suitePr.setSuite(suite);
                 suitePr.setOriginalPrNumber(prNumber);
-                suitePr.setTitle(prNode.get("title").asText());
-                suitePr.setDescription(prNode.has("body") ? prNode.get("body").asText("") : "");
-                suitePr.setBaseBranch(prNode.get("base").get("ref").asText());
-                suitePr.setBaseCommitSha(prNode.get("base").get("sha").asText());
-                suitePr.setHeadBranch(prNode.get("head").get("ref").asText());
-                suitePr.setHeadCommitSha(prNode.get("head").get("sha").asText());
-                suitePr.setAuthor(prNode.get("user").get("login").asText());
+                suitePr.setTitle(JsonValues.asText(prNode.get("title")));
+                suitePr.setDescription(prNode.has("body") ? JsonValues.asText(prNode.get("body"), "") : "");
+                suitePr.setBaseBranch(JsonValues.asText(prNode.get("base").get("ref")));
+                suitePr.setBaseCommitSha(JsonValues.asText(prNode.get("base").get("sha")));
+                suitePr.setHeadBranch(JsonValues.asText(prNode.get("head").get("ref")));
+                suitePr.setHeadCommitSha(JsonValues.asText(prNode.get("head").get("sha")));
+                suitePr.setAuthor(JsonValues.asText(prNode.get("user").get("login")));
                 if (prNode.has("merged_at") && !prNode.get("merged_at").isNull()) {
-                    suitePr.setMergedAt(Instant.parse(prNode.get("merged_at").asText()));
+                    suitePr.setMergedAt(Instant.parse(JsonValues.asText(prNode.get("merged_at"))));
                 }
-                suitePr.setFilesChanged(prNode.has("changed_files") ? prNode.get("changed_files").asInt() : 0);
-                suitePr.setAdditions(prNode.has("additions") ? prNode.get("additions").asInt() : 0);
-                suitePr.setDeletions(prNode.has("deletions") ? prNode.get("deletions").asInt() : 0);
+                suitePr.setFilesChanged(prNode.has("changed_files") ? JsonValues.asInt(prNode.get("changed_files")) : 0);
+                suitePr.setAdditions(prNode.has("additions") ? JsonValues.asInt(prNode.get("additions")) : 0);
+                suitePr.setDeletions(prNode.has("deletions") ? JsonValues.asInt(prNode.get("deletions")) : 0);
 
                 return ResponseEntity.ok(suitePrRepo.save(suitePr));
             } catch (Exception e) {
