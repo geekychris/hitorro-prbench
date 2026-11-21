@@ -142,12 +142,12 @@ content-type: application/json
 ### repo import
 status: 200
 content-type: application/json
-{"repo":{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"A lib","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]},"alreadyExists":false}
+{"alreadyExists":false,"repo":{"id":2,"name":"lib","githubUrl":"https://github.com/golden/lib","owner":"golden","repoName":"lib","mirrorOrg":null,"mirrorRepoName":null,"mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":"Kotlin","fork":true,"isPrivate":false,"stars":7,"githubDescription":"A lib","docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}}
 
 ### repo import existing
 status: 200
 content-type: application/json
-{"repo":{"id":1,"name":"app","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]},"alreadyExists":true}
+{"alreadyExists":true,"repo":{"id":1,"name":"app","githubUrl":"https://github.com/golden/app.git","owner":"golden","repoName":"app","mirrorOrg":"golden-mirror","mirrorRepoName":"app-mirror","mirrorRepoUrl":null,"defaultBranch":"main","lastSyncedAt":null,"syncStatus":"NEVER","configJson":null,"tags":null,"notes":null,"language":null,"fork":false,"isPrivate":false,"stars":0,"githubDescription":null,"docsJson":null,"docsScannedAt":null,"createdAt":"~","updatedAt":"~","tagList":[]}}
 
 ### repo import missing
 status: 400
@@ -157,7 +157,7 @@ content-type: application/json
 ### repo import all
 status: 200
 content-type: application/json
-{"skipped":1,"imported":1}
+{"imported":1,"skipped":1}
 
 ### repo get
 status: 200
@@ -248,7 +248,7 @@ content-type: application/json
 ### repo github status
 status: 200
 content-type: application/json
-{"local":{"githubDescription":"","notes":"Local notes","tags":["Backend","golden","bulk"]},"github":{"topics":["java","golden"],"description":"Golden repo \"app\" é"},"synced":true}
+{"local":{"tags":["Backend","golden","bulk"],"notes":"Local notes","githubDescription":""},"github":{"description":"Golden repo \"app\" é","topics":["java","golden"]},"synced":true}
 
 ### repo github status -> github
 GET /repos/golden/app
@@ -278,7 +278,7 @@ GET /repos/golden/app/contents/pom.xml
 ### repo generate descriptions
 status: 200
 content-type: application/json
-{"failed":1,"generated":0,"total":1}
+{"total":1,"generated":0,"failed":1}
 
 ### repo generate descriptions -> github
 GET /repos/golden-org/svc/readme
@@ -343,12 +343,12 @@ GET /repos/golden/app/git/trees/develop?recursive=1
 ### repo docs
 status: 200
 content-type: application/json
-{"scannedAt":"~","scanned":true,"docs":[{"path":"README.md","url":"https://github.com/golden/app/blob/develop/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/app/blob/develop/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/app/blob/develop/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}]}
+{"docs":[{"path":"README.md","url":"https://github.com/golden/app/blob/develop/README.md","name":"README.md","category":"readme"},{"path":"docs/guide.md","url":"https://github.com/golden/app/blob/develop/docs/guide.md","name":"guide.md","category":"docs"},{"path":"CONTRIBUTING.md","url":"https://github.com/golden/app/blob/develop/CONTRIBUTING.md","name":"CONTRIBUTING.md","category":"contributing"}],"scanned":true,"scannedAt":"~"}
 
 ### repo bulk scan docs
 status: 200
 content-type: application/json
-{"failed":0,"total":1,"scanned":1}
+{"scanned":1,"total":1,"failed":0}
 
 ### repo bulk scan docs -> github
 GET /repos/golden/lib/git/trees/main?recursive=1
@@ -356,7 +356,7 @@ GET /repos/golden/lib/git/trees/main?recursive=1
 ### repo bulk scan docs unscanned
 status: 200
 content-type: application/json
-{"failed":0,"total":1,"scanned":1}
+{"scanned":1,"total":1,"failed":0}
 
 ### repo bulk scan docs unscanned -> github
 GET /repos/golden-org/svc/git/trees/main?recursive=1
@@ -715,6 +715,18 @@ ok "fr_CA"
 ### converter-write locale-map-key
 ok {"fr_CA":1}
 
+### converter-write locale-script
+ok "zh_TW_#Hant"
+
+### converter-write locale-country-only
+ok "_US"
+
+### converter-write month
+ok "NOVEMBER"
+
+### converter-write day-of-week
+ok "FRIDAY"
+
 ### converter-write zoned-date-time
 ok "2026-11-20T13:45:30-08:00"
 
@@ -885,6 +897,33 @@ error HttpMessageNotReadableException
 
 ### converter-read target-locale-style-instant
 ok Target:count=0 name=null tags=null when=2026-11-20T12:45:30.123Z color=null ratio=0.0
+
+### converter-read-jdk locale
+ok JdkTarget:locale=fr_CA|fr-CA month=null byLocale=null
+
+### converter-read-jdk locale-tag
+ok JdkTarget:locale=fr_CA|fr-CA month=null byLocale=null
+
+### converter-read-jdk locale-script
+ok JdkTarget:locale=zh_TW_#Hant|zh-Hant-TW month=null byLocale=null
+
+### converter-read-jdk locale-extension
+ok JdkTarget:locale=de_DE_#u-co-phonebk|de-DE-u-co-phonebk month=null byLocale=null
+
+### converter-read-jdk locale-padded
+ok JdkTarget:locale=en_US|en-US month=null byLocale=null
+
+### converter-read-jdk locale-empty
+ok JdkTarget:locale=|und month=null byLocale=null
+
+### converter-read-jdk locale-map-key
+ok JdkTarget:locale=null month=null byLocale={sr__#Latn=1,  en =2}
+
+### converter-read-jdk month-name
+ok JdkTarget:locale=null month=NOVEMBER byLocale=null
+
+### converter-read-jdk month-number
+ok JdkTarget:locale=null month=NOVEMBER byLocale=null
 
 ### converter-read-map map
 ok LinkedHashMap{b=Integer:1,a=ArrayList[Integer:1,Double:2.5,String:s,null,Boolean:true,],c=LinkedHashMap{x=Double:1.1,},}
